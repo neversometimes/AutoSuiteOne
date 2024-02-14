@@ -37,19 +37,17 @@ public class IncognitoModeTest {
     @Test
     public void testIncognitoModeByCapabilities() {
 
-        //
+        // Can't figure out how to verify Incognito mode is set.
+        // Given it's a browser setting and not a web page/app property or behavior,
+        // maybe verification is not a high priority.
 
         driver.get("https://bonigarcia.dev/selenium-webdriver-java/");
-        String initHandle = driver.getWindowHandle();
+        String initHandle = driver.getWindowHandle();  // save handle to first browser window
 
         driver.switchTo().newWindow(WindowType.WINDOW);
 
         driver.get("https://github.com/bonigarcia/selenium-webdriver-java");
 
-            System.out.println(driver.getTitle());
-
-
-        //assertTrue(driver.getTitle().contains("Incognito"));
     }
 
 
