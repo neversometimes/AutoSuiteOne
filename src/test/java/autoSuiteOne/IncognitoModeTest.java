@@ -37,6 +37,8 @@ public class IncognitoModeTest {
     @Test
     public void testIncognitoModeByCapabilities() {
 
+        //
+
         driver.get("https://bonigarcia.dev/selenium-webdriver-java/");
         String initHandle = driver.getWindowHandle();
 
