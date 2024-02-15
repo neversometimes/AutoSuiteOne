@@ -176,7 +176,7 @@ public class CdpRawCommandsTest {
 
         devTools.addListener(Network.loadingFailed(), loadingFailed -> {  // listener to trace failed events
             BlockedReason reason = loadingFailed.getBlockedReason().get();
-            System.out.println("Blocking reason: " + reason);
+            //System.out.println("Blocking reason: " + reason);
             assertEquals(reason, BlockedReason.INSPECTOR);
         });
 
