@@ -475,7 +475,7 @@ public class BrowserAgnosticTest {
         driver.get("https://bonigarcia.dev/selenium-webdriver-java/dialog-boxes.html");
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
 
-        driver.findElement(By.id("my-alert")).click();   // click alert web element
+        driver.findElement(By.id("my-alert")).click();   // click alert button web element
         wait.until(ExpectedConditions.alertIsPresent()); // wait for alert to appear
         Alert alert = driver.switchTo().alert();         // put focus on alert UI
 
