@@ -3,11 +3,14 @@ package autoSuiteOne;
 import com.google.common.collect.ImmutableList;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.devtools.DevTools;
+import org.openqa.selenium.devtools.events.ConsoleEvent;
 import org.openqa.selenium.devtools.v121.network.model.BlockedReason;
+import org.openqa.selenium.devtools.v121.network.model.Cookie;
 import org.openqa.selenium.devtools.v121.network.model.Headers;
 import org.openqa.selenium.devtools.v121.performance.Performance;
 import org.openqa.selenium.devtools.v121.dom.model.Rect;
@@ -16,12 +19,16 @@ import org.openqa.selenium.devtools.v121.network.model.ConnectionType;
 import org.openqa.selenium.devtools.v121.page.Page;
 import org.openqa.selenium.devtools.v121.page.model.Viewport;
 import org.openqa.selenium.devtools.v121.performance.model.Metric;
+import org.openqa.selenium.devtools.v85.emulation.Emulation;
+import org.openqa.selenium.devtools.v85.security.Security;
+import org.openqa.selenium.support.Color;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 import static org.testng.Assert.*;
+import static org.testng.AssertJUnit.assertTrue;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -29,6 +36,8 @@ import java.nio.file.Paths;
 import java.nio.file.Path;
 import java.time.Duration;
 import java.util.*;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.TimeUnit;
 
 public class CdpRawCommandsTest {
 
@@ -205,6 +214,64 @@ public class CdpRawCommandsTest {
 
         driver.get("https://bonigarcia.dev/selenium-webdriver-java/");
         assertTrue(driver.getTitle().contains("Selenium WebDriver"));
+    }
+
+    @Test
+    void testConsoleListener() throws Exception {
+        CompletableFuture<ConsoleEvent> futureEvents = new CompletableFuture<>();
+        devTools.getDomains().events().addConsoleListener(futureEvents::complete); // create listener for console events
+
+        CompletableFuture<JavascriptException> futureJsExc = new CompletableFuture<>();
+        devTools.getDomains().events()
+                .addJavascriptExceptionListener(futureJsExc::complete);
+
+        driver.get("https://bonigarcia.dev/selenium-webdriver-java/console-logs.html");
+
+        ConsoleEvent consoleEvent = futureEvents.get(5, TimeUnit.SECONDS);
+
+        //System.out.println("ConsoleEvent: " + consoleEvent.getTimestamp()
+        //        + " " + consoleEvent.getType() + " " + consoleEvent.getMessages());
+
+        JavascriptException jsException = futureJsExc.get(5, TimeUnit.SECONDS);
+
+        //System.out.println("JavascriptException: " + jsException.getMessage()
+        //        + " " + jsException.getSystemInformation());
+    }
+
+    @Test
+    void testGeolocationOverride() {
+        // Override geo location using coordinates of the Eiffel Tower
+        devTools.send(Emulation.setGeolocationOverride(Optional.of(48.8584),
+                                            Optional.of(2.2945),
+                                            Optional.of(100)));
+
+        driver.get("https://bonigarcia.dev/selenium-webdriver-java/geolocation.html");
+        driver.findElement(By.id("get-coordinates")).click();
+
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
+        WebElement coordinates = driver.findElement(By.id("coordinates"));
+
+        // ** WAIT until the geo-coordinates text to appear on the page **
+        wait.until(ExpectedConditions.visibilityOf(coordinates));
+
+        // verify coordinates are overriden on the page
+        assertTrue(coordinates.getText().contains("48.8584") && coordinates.getText().contains("2.2945"));
+
+    }
+
+    @Test
+    void testLoadInsecure() {
+
+        devTools.send(Security.enable());                       // enable track security
+        devTools.send(Security.setIgnoreCertificateErrors(true)); // ignore cert errors
+
+        driver.get("https://expired.badssl.com/");
+
+        String bgColor = driver.findElement(By.tagName("body"))
+                .getCssValue("background-color");
+
+        Color red = new Color(255, 0, 0, 1);
+        assertEquals(Color.fromString(bgColor), red);
     }
 
 } // end class
