@@ -27,15 +27,10 @@ public class WebAuthenticationTest {
     }
 
     @BeforeTest
-    void setup () {
-        driver = WebDriverManager.chromedriver().create();
-
-    }
+    void setup () {driver = WebDriverManager.chromedriver().create();}
 
     @AfterTest
-    void teardown() {
-        driver.quit();
-    }
+    void teardown() {driver.quit();}
 
     @Test
     void testWebAuthN() {
