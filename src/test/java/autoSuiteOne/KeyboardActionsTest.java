@@ -19,7 +19,6 @@ public class KeyboardActionsTest {
 
     @BeforeSuite
     void setup() {
-        System.out.println("Setup KeyboardActionsTest");
         driver = WebDriverManager.chromedriver().create();
 
         // load test web site page for ALL KeyboardActionsTest suite
@@ -28,13 +27,11 @@ public class KeyboardActionsTest {
 
     @AfterSuite
     void teardown() {
-        System.out.println("teardown KeyboardActionsTest");
         driver.quit();
     }
 
     @Test
     void testSendKeys(){
-        System.out.println ("testSendKeys");
 
         WebElement inputText = driver.findElement(By.name("my-text"));
         String textValue = "Hello World!";
@@ -48,7 +45,6 @@ public class KeyboardActionsTest {
 
     @Test
     void testUpLoadFile() throws IOException {
-        System.out.println("testUpLoadFile");
 
         String initURL = driver.getCurrentUrl();
 
@@ -65,7 +61,6 @@ public class KeyboardActionsTest {
 
     @Test
     void testRangeSlider() {
-        System.out.println("testRangeSlider");
 
         WebElement slider = driver.findElement(By.name("my-range"));
         String initValue = slider.getAttribute("value");

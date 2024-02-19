@@ -23,7 +23,6 @@ public class LocatingElementsTest {
 
     @BeforeSuite
     void setup() {
-        System.out.println("Setup LocatingElementsTest");
         driver = WebDriverManager.chromedriver().create();
 
         // load test web site page for ALL LocatingElementsTest class methods
@@ -32,13 +31,11 @@ public class LocatingElementsTest {
 
     @AfterSuite
     void teardown() {
-        System.out.println("teardown LocatingElementsTest");
         driver.quit();
     }
 
     @Test
     public void testTagName(){
-        System.out.println("testTagName");
 
         WebElement textarea = driver.findElement(By.tagName("textarea"));  // only one element has this name
         assertEquals((textarea.getDomAttribute("rows")), "3");
@@ -46,7 +43,6 @@ public class LocatingElementsTest {
 
     @Test
     void testLinkText(){
-        System.out.println("testLinkText");  //
         WebElement linkByText = driver.findElement(By.linkText("Return to index"));
         assertEquals(linkByText.getTagName(), "a");
         assertEquals(linkByText.getCssValue("cursor"), "pointer");
@@ -58,7 +54,7 @@ public class LocatingElementsTest {
 
     @Test
     void testHtmlAttributes(){
-        System.out.println("testHtmlAttributes");  //locate by HTML attributes name, id and class
+       //locate by HTML attributes name, id and class
 
         //by name
         WebElement textByName = driver.findElement(By.name("my-text"));
@@ -82,7 +78,6 @@ public class LocatingElementsTest {
     }
     @Test
     void testCssSelector(){
-        System.out.println("testCssSelector");
 
         // basic locator with CSS selector
         WebElement hidden = driver.findElement(By.cssSelector("input[type=hidden]"));  //simple example
@@ -99,7 +94,6 @@ public class LocatingElementsTest {
     }
     @Test
     void testXpath(){
-        System.out.println("testXpath");
 
         // basic locator with XPath
         WebElement hidden = driver.findElement(By.xpath("//input[@type='hidden']"));
@@ -116,7 +110,6 @@ public class LocatingElementsTest {
     }
     @Test
     void testIdOrName(){
-        System.out.println("testIdOrName");
 
         WebElement fileElement = driver.findElement(new ByIdOrName("my-file"));
         assertTrue(fileElement.getAttribute("id").isBlank());
@@ -124,14 +117,12 @@ public class LocatingElementsTest {
     }
     @Test
     void testComplexChained(){
-        System.out.println("testComplexChained");
 
         List<WebElement> rowsInForm = driver.findElements(new ByChained(By.tagName("form"), By.className("row")));
         assertEquals(rowsInForm.size(), 1);
     }
     @Test
     void testByAll(){
-        System.out.println("testByAll");
 
         List<WebElement> formRows = driver.findElements(new ByAll(By.tagName("form"), By.className("row")));
         assertEquals(formRows.size(), 5);
@@ -139,7 +130,6 @@ public class LocatingElementsTest {
 
     @Test
     void testRelativeLocators(){
-        System.out.println("testRelativeLocators");
 
         WebElement link = driver.findElement(By.linkText("Return to index"));
         RelativeLocator.RelativeBy relativeBy = RelativeLocator.with(By.tagName("input"));
@@ -149,7 +139,6 @@ public class LocatingElementsTest {
 
     @Test
     void testDatePicker(){
-        System.out.println("testDatePicker");
 
         // get current date from the system clock
         LocalDate today = LocalDate.now();

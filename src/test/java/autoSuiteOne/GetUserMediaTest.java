@@ -15,7 +15,6 @@ import java.time.Duration;
 import java.util.regex.Pattern;
 
 public class GetUserMediaTest {
-
     WebDriver driver;
     @BeforeTest
     void setup() {

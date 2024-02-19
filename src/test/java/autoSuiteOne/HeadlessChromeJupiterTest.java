@@ -29,7 +29,6 @@ public class HeadlessChromeJupiterTest {
 
     @BeforeTest
     void setup() {
-        System.out.println("setup HeadlessChromeJupiterTest");
         ChromeOptions options = new ChromeOptions();
 
         options.addArguments("--headless");
@@ -40,13 +39,12 @@ public class HeadlessChromeJupiterTest {
 
     @AfterTest
     void teardown() {
-        System.out.println("teardown HeadlessChromeJupiterTest");
         driver.quit();
     }
 
     @Test
     void testHeadless() {
-        System.out.println("testHeadless");
+
         driver.get("https://bonigarcia.dev/selenium-webdriver-java/");
         assertTrue (driver.getTitle().contains("Selenium WebDriver"));
 

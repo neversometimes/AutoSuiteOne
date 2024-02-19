@@ -19,8 +19,6 @@ import java.util.Map;
 import static org.testng.AssertJUnit.*;
 
 public class GeolocationTest {
-
-
     WebDriver driver;
 
     @BeforeTest

@@ -23,7 +23,7 @@ public class EventListenerTest {
     // @BeforeEach
     @BeforeTest
     void setup() {
-        System.out.println("Setup EventListenerTest");
+
         MyEventListener listener = new MyEventListener();  // construct listener object
         WebDriver originalDriver = WebDriverManager.chromedriver().create();  // create driver
         driver = new EventFiringDecorator<>(listener).decorate(originalDriver);  // decorate driver with listener
@@ -32,13 +32,13 @@ public class EventListenerTest {
     // @AfterEach
     @AfterTest
     void teardown() {
-        System.out.println("teardown EventListenerTest");
+
         driver.quit();
     }
 
     @Test
     void testEventListener() {
-        System.out.println("testEventListener");
+
         driver.get("https://bonigarcia.dev/selenium-webdriver-java/");  // driver + listener "afterGet" takes screenshot
 
         //assertThat(driver.getTitle()).isEqualTo("Hands-On Selenium WebDriver with Java");

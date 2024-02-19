@@ -32,20 +32,16 @@ public class BrowserAgnosticTest {
 
     @BeforeSuite
     void setup() {
-        System.out.println("Setup BrowserAgnosticTests");
         driver = WebDriverManager.chromedriver().create();
 
     }
     @AfterSuite
     void teardown() {
-        System.out.println("teardown BrowserAgnosticTests");
         driver.quit();
     }
 
     @Test
     public void testScrollByPixels() {
-
-        System.out.println("testScrollByPixels");
 
         driver.get("https://bonigarcia.dev/selenium-webdriver-java/long-page.html");
         js = (JavascriptExecutor) driver;
@@ -59,7 +55,6 @@ public class BrowserAgnosticTest {
     }
     @Test
     public void testScrollIntoView() {
-        System.out.println("testScrollIntoView");
 
         driver.get("https://bonigarcia.dev/selenium-webdriver-java/long-page.html");
         js = (JavascriptExecutor) driver;
@@ -75,7 +70,6 @@ public class BrowserAgnosticTest {
     }
     @Test
     public void testInfiniteScroll() {
-        System.out.println("testInfiniteScroll");
 
         driver.get("https://bonigarcia.dev/selenium-webdriver-java/infinite-scroll.html");
         js = (JavascriptExecutor) driver;
@@ -99,7 +93,6 @@ public class BrowserAgnosticTest {
     }
     @Test
     public void testColorPicker() {
-        System.out.println("testColorPicker");
 
         driver.get("https://bonigarcia.dev/selenium-webdriver-java/web-form.html");
         js = (JavascriptExecutor) driver;
@@ -119,7 +112,6 @@ public class BrowserAgnosticTest {
     }
     @Test
     public void testPinnedScripts() throws IOException {
-        System.out.println("testPinnedScripts");
 
         String initPage = "https://bonigarcia.dev/selenium-webdriver-java/";
         driver.get(initPage);
@@ -144,7 +136,6 @@ public class BrowserAgnosticTest {
     }
     @Test
     public void testAsyncScript() {
-        System.out.println("testAsyncScript");
         driver.get("https://bonigarcia.dev/selenium-webdriver-java/");
         js = (JavascriptExecutor) driver;
 
@@ -179,7 +170,6 @@ public class BrowserAgnosticTest {
 */
     @Test
     public void testScriptTimeout() throws IOException {
-        System.out.println("testScriptTimout");
         driver.get("https://bonigarcia.dev/selenium-webdriver-java/");
         js = (JavascriptExecutor) driver;
 
@@ -200,7 +190,6 @@ public class BrowserAgnosticTest {
     }
     @Test
     public void testPageScreenShotPng() throws IOException {
-        System.out.println("testPageScreenShotPng");
 
         driver.get("https://bonigarcia.dev/selenium-webdriver-java/");
         ts = ((TakesScreenshot) driver);
@@ -215,7 +204,6 @@ public class BrowserAgnosticTest {
     }
     @Test
     public void testPageScreenShotBase64() throws IOException {
-        System.out.println("testPageScreenShotBase64");
         driver.get("https://bonigarcia.dev/selenium-webdriver-java/");
         ts = ((TakesScreenshot) driver);
 
@@ -227,7 +215,6 @@ public class BrowserAgnosticTest {
     }
     @Test
     public void testWebElementScreenShot() throws IOException {
-        System.out.println("testWebElementScreenShot");
         driver.get("https://bonigarcia.dev/selenium-webdriver-java/web-form.html");
         WebElement form = driver.findElement(By.tagName("form"));  // grab web element by tagname
         File screenshotFile = form.getScreenshotAs(OutputType.FILE); // take screenshot
@@ -238,7 +225,6 @@ public class BrowserAgnosticTest {
     }
     @Test
     public void testBrowserWindow() {
-        System.out.println("testBrowserWindow");
 
         driver.get("https://bonigarcia.dev/selenium-webdriver-java/");
         WebDriver.Window window = driver.manage().window();
@@ -258,7 +244,6 @@ public class BrowserAgnosticTest {
     }
     @Test
     public void testBrowserHistory() {
-        System.out.println("testBrowserHistory");
 
         String baseURL = "https://bonigarcia.dev/selenium-webdriver-java/";
         String firstPage = baseURL + "navigation1.html";
@@ -288,8 +273,6 @@ public class BrowserAgnosticTest {
     @Test
     public void testShadowDOM() {
 
-        System.out.println("testShadowDOM");
-
         driver.get("https://bonigarcia.dev/selenium-webdriver-java/shadow-dom.html");
 
         WebElement content = driver.findElement(By.id("content"));
@@ -301,8 +284,6 @@ public class BrowserAgnosticTest {
     }
     @Test
     public void testCreateCookies() {  // CREATE COOKIE
-
-        System.out.println("testCreateCookies");
         driver.get("https://bonigarcia.dev/selenium-webdriver-java/cookies.html");
         Options options = driver.manage();
 
@@ -321,7 +302,6 @@ public class BrowserAgnosticTest {
     @Test
     public void testReadCookies(){     // READ COOKIE
 
-        System.out.println("testReadCookies");
         driver.get("https://bonigarcia.dev/selenium-webdriver-java/cookies.html");
         Options options = driver.manage();
 
@@ -337,7 +317,6 @@ public class BrowserAgnosticTest {
     @Test
     public void testUpdateCookies() {   //  UPDATE COOKIE
 
-        System.out.println("testUpdateCookies");
         driver.get("https://bonigarcia.dev/selenium-webdriver-java/cookies.html");
         Options options = driver.manage();
 
@@ -353,7 +332,6 @@ public class BrowserAgnosticTest {
     @Test
     public void testDeleteCookies() {   //  DELETE COOKIE
 
-        System.out.println("testDeleteCookies");
         driver.get("https://bonigarcia.dev/selenium-webdriver-java/cookies.html");
         Options options = driver.manage();
 
@@ -370,7 +348,6 @@ public class BrowserAgnosticTest {
     @Test
     public void testDropDownList() {
 
-        System.out.println("testDropDownList");
         driver.get("https://bonigarcia.dev/selenium-webdriver-java/web-form.html");
 
         Select select = new Select(driver.findElement(By.name("my-select"))); // find dropdown select
@@ -383,7 +360,6 @@ public class BrowserAgnosticTest {
     @Test
     public void testDataList() {
 
-        System.out.println("testDataList");
         driver.get("https://bonigarcia.dev/selenium-webdriver-java/web-form.html");
 
         WebElement dataList = driver.findElement(By.name("my-datalist")); //find datalist web element
@@ -400,7 +376,6 @@ public class BrowserAgnosticTest {
     @Test
     public void testOpenNewTab() {
 
-        System.out.println("testOpenNewTab");
         String initURL = "https://bonigarcia.dev/selenium-webdriver-java/";
         driver.get(initURL);
         String initHandle = driver.getWindowHandle();  // get window handle
@@ -422,7 +397,6 @@ public class BrowserAgnosticTest {
     @Test
     public void testOpenNewWindow() {
 
-        System.out.println("testOpenNewWindow");
         String initURL = "https://bonigarcia.dev/selenium-webdriver-java/";
         driver.get(initURL);
         String initHandle = driver.getWindowHandle();  // get window handle
@@ -444,7 +418,6 @@ public class BrowserAgnosticTest {
     @Test
     public void testiFrames() {
 
-        System.out.println("testiFrames");
         driver.get("https://bonigarcia.dev/selenium-webdriver-java/iframes.html");
 
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));  // wait 10s for iFrame to load
@@ -458,7 +431,6 @@ public class BrowserAgnosticTest {
     @Test
     public void testFrames() {
 
-        System.out.println("testFrames");
         driver.get("https://bonigarcia.dev/selenium-webdriver-java/frames.html");
 
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));  // wait 10s max
@@ -475,7 +447,6 @@ public class BrowserAgnosticTest {
     @Test
     public void testAlerts() {
 
-        System.out.println("testAlerts");
         driver.get("https://bonigarcia.dev/selenium-webdriver-java/dialog-boxes.html");
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
 
@@ -490,7 +461,6 @@ public class BrowserAgnosticTest {
     @Test
     public void testConfirms() {
 
-        System.out.println("testConfirms");
         driver.get("https://bonigarcia.dev/selenium-webdriver-java/dialog-boxes.html");
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
 
@@ -507,7 +477,6 @@ public class BrowserAgnosticTest {
     @Test
     public void testPrompts() {
 
-        System.out.println("testPrompts");
         driver.get("https://bonigarcia.dev/selenium-webdriver-java/dialog-boxes.html");
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
 
@@ -527,7 +496,6 @@ public class BrowserAgnosticTest {
     @Test
     public void testModals() {
 
-        System.out.println("testModals");
         driver.get("https://bonigarcia.dev/selenium-webdriver-java/dialog-boxes.html");
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
 
@@ -545,7 +513,6 @@ public class BrowserAgnosticTest {
     @Test
     public void testWebStorage() {
 
-        System.out.println("testWebStorage");
         driver.get("https://bonigarcia.dev/selenium-webdriver-java/web-storage.html");
         WebStorage webStorage = (WebStorage) driver;
 

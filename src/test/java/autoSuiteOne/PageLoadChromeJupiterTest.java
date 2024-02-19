@@ -25,7 +25,6 @@ public class PageLoadChromeJupiterTest {
 
     @BeforeTest
     void setup() {
-        System.out.println("setup PageLoadChromeJupiterTest");
         ChromeOptions options = new ChromeOptions();
         pageLoadStrategy = PageLoadStrategy.NORMAL;   // set page load strategy to NORMAL
         options.setPageLoadStrategy(pageLoadStrategy);
@@ -35,13 +34,11 @@ public class PageLoadChromeJupiterTest {
 
     @AfterTest
     void teardown() {
-        System.out.println("teardown PageLoadChromeJupiterTest");
         driver.quit();
     }
 
     @Test
     void testPageLoad(){
-        System.out.println("testPageLoad");
         long initMillis = System.currentTimeMillis();
         driver.get("https://bonigarcia.dev/selenium-webdriver-java/");
         Duration elapsed = Duration.ofMillis(System.currentTimeMillis() - initMillis);

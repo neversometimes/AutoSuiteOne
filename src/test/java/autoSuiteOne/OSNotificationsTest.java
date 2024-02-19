@@ -19,7 +19,6 @@ public class OSNotificationsTest {
 
     @BeforeTest
     void setup() {
-        System.out.println("setup OSNotificationsTest");
         //  This setup section includes code to allow notifications in Chrome
 
         ChromeOptions options = new ChromeOptions();
@@ -32,12 +31,10 @@ public class OSNotificationsTest {
     }
     @AfterTest
     void teardown() {
-        System.out.println("teardown OSNotificationsTest");
         driver.quit();
     }
     @Test
     public void testNotifications(){
-        System.out.println("testNotifications");
 
         driver.get("https://bonigarcia.dev/selenium-webdriver-java/notifications.html");
         JavascriptExecutor js = (JavascriptExecutor) driver;

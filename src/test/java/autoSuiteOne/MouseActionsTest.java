@@ -20,20 +20,17 @@ public class MouseActionsTest {
 
     @BeforeSuite
     void setup() {
-        System.out.println("Setup MouseActionsTest");
         driver = WebDriverManager.chromedriver().create();
 
     }
 
     @AfterSuite
     void teardown() {
-        System.out.println("teardown MouseActionsTest");
         driver.quit();
     }
 
     @Test
     void testAWebNav(){
-        System.out.println("testAWebNav");
 
         // load target page this test only
         driver.get("https://bonigarcia.dev/selenium-webdriver-java/");
@@ -53,7 +50,6 @@ public class MouseActionsTest {
 
     @Test
     void testCheckboxAndRadioBtns () {
-        System.out.println("testCheckboxAndRadioBtns");
 
         // load test web site page
         driver.get("https://bonigarcia.dev/selenium-webdriver-java/web-form.html");
@@ -69,7 +65,6 @@ public class MouseActionsTest {
 
     @Test
     void testContextAndDoubleClick(){
-        System.out.println("testContextAndDoubleClick");
 
         driver.get("https://bonigarcia.dev/selenium-webdriver-java/dropdown-menu.html");
         Actions actions = new Actions(driver);
@@ -88,7 +83,6 @@ public class MouseActionsTest {
 
     @Test
     void testMouseOver() {
-        System.out.println("testMouseOver");
 
         driver.get("https://bonigarcia.dev/selenium-webdriver-java/mouse-over.html");
         Actions actions = new Actions(driver);
@@ -108,7 +102,6 @@ public class MouseActionsTest {
     }
     @Test
     void testDragAndDrop() {
-        System.out.println("testDragAndDrop");
 
         driver.get("https://bonigarcia.dev/selenium-webdriver-java/drag-and-drop.html");
         Actions actions = new Actions(driver);
@@ -130,7 +123,6 @@ public class MouseActionsTest {
 
     @Test
     void testClickAndHold() {
-        System.out.println("testClickAndHold");
 
         driver.get("https://bonigarcia.dev/selenium-webdriver-java/draw-in-canvas.html");
         Actions actions = new Actions(driver);
@@ -153,7 +145,6 @@ public class MouseActionsTest {
 
     @Test
     void testCopyAndPaste() {
-        System.out.println("testCopyAndPaste");
 
         driver.get("https://bonigarcia.dev/selenium-webdriver-java/web-form.html");
         Actions actions = new Actions(driver);
