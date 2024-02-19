@@ -2,7 +2,7 @@ package autoSuiteOne;
 
 import static org.testng.AssertJUnit.*;             // TestNG
 import org.testng.annotations.*;
-import static org.assertj.core.api.Assertions.*;   // AssertJ
+
 import io.github.bonigarcia.wdm.WebDriverManager;
 
 import org.openqa.selenium.*;
@@ -202,11 +202,11 @@ public class BrowserAgnosticTest {
 
         File screenshotFile = ts.getScreenshotAs(OutputType.FILE);  // take screenshot PNG default file type
 
-        Path destinationPath = Paths.get("testPageScreenshot.png");  //find destination path
+        Path destinationPath = Paths.get("testPageScreenshot.png");  //find file destination path
 
         Files.move(screenshotFile.toPath(), destinationPath, REPLACE_EXISTING); //move file to destination
 
-        assertThat(destinationPath).exists(); //assert the screenshot was created
+        assertNotNull(destinationPath); //assert the screenshot was created
     }
     @Test
     public void testPageScreenShotBase64() throws IOException {
@@ -218,7 +218,7 @@ public class BrowserAgnosticTest {
 
         // System.out.println ("image/png;base64" + screenshot); // paste this result into browser to verify
 
-        assertThat(screenshot).isNotEmpty();  // data capture successful
+        assertNotNull(screenshot);  // data capture successful
     }
     @Test
     public void testWebElementScreenShot() throws IOException {
@@ -229,7 +229,7 @@ public class BrowserAgnosticTest {
         Path destinationPath = Paths.get("testWebElementScreenshot.png");
         Files.move(screenshotFile.toPath(), destinationPath, REPLACE_EXISTING);
 
-        assertThat(destinationPath).exists(); //assert the screenshot was created
+        assertNotNull(destinationPath); //assert the screenshot was created
     }
     @Test
     public void testBrowserWindow() {
@@ -245,8 +245,8 @@ public class BrowserAgnosticTest {
         Point maximizedPosition = window.getPosition();   // grab max browser window position and size
         Dimension maximizedSize = window.getSize();
 
-        assertThat(initialPosition).isNotEqualTo(maximizedPosition);  // check window position changed
-        assertThat(initialSize).isNotEqualTo(maximizedSize);    // check window size changed
+        assertNotSame(initialPosition, maximizedPosition);  // check window position changed
+        assertNotSame(initialSize, maximizedSize);    // check window size changed
 
         window.minimize();    // minimize browser window
         window.fullscreen();  // return to full screen window (not max/not min)
@@ -261,23 +261,23 @@ public class BrowserAgnosticTest {
         String thirdPage = baseURL + "navigation3.html";
 
         driver.get(firstPage);
-        assertThat(driver.getCurrentUrl()).isEqualTo(firstPage);
+        assertEquals(driver.getCurrentUrl(), firstPage);
         driver.navigate().to(secondPage);
-        assertThat(driver.getCurrentUrl()).isEqualTo(secondPage);
+        assertEquals(driver.getCurrentUrl(), secondPage);
         driver.navigate().to(thirdPage);
-        assertThat(driver.getCurrentUrl()).isEqualTo(thirdPage);
+        assertEquals(driver.getCurrentUrl(), thirdPage);
         driver.navigate().back();
-        assertThat(driver.getCurrentUrl()).isEqualTo(secondPage);
+        assertEquals(driver.getCurrentUrl(), secondPage);
         driver.navigate().forward();
-        assertThat(driver.getCurrentUrl()).isEqualTo(thirdPage);
+        assertEquals(driver.getCurrentUrl(), thirdPage);
         driver.navigate().back();
-        assertThat(driver.getCurrentUrl()).isEqualTo(secondPage);
+        assertEquals(driver.getCurrentUrl(), secondPage);
         driver.navigate().back();
-        assertThat(driver.getCurrentUrl()).isEqualTo(firstPage);
+        assertEquals(driver.getCurrentUrl(), firstPage);
         driver.navigate().forward();
-        assertThat(driver.getCurrentUrl()).isEqualTo(secondPage);
+        assertEquals(driver.getCurrentUrl(), secondPage);
         driver.navigate().refresh();
-        assertThat(driver.getCurrentUrl()).isEqualTo(secondPage);
+        assertEquals(driver.getCurrentUrl(), secondPage);
 
     }
     @Test
@@ -291,7 +291,7 @@ public class BrowserAgnosticTest {
         SearchContext shadowRoot = content.getShadowRoot();
 
         WebElement textElement = shadowRoot.findElement(By.cssSelector("p"));
-        assertThat(textElement.getText()).contains("Hello Shadow DOM");
+        assertTrue(textElement.getText().contains("Hello Shadow DOM"));
 
     }
     @Test
@@ -305,7 +305,7 @@ public class BrowserAgnosticTest {
         options.addCookie(newCookie);  // add cookie to current page
 
         String readValue = options.getCookieNamed(newCookie.getName()).getValue();  // read new cookie value
-        assertThat(newCookie.getValue()).isEqualTo(readValue); // verify new cookie value is correct
+        assertEquals(newCookie.getValue(), readValue); // verify new cookie value is correct
 
         driver.findElement(By.id("refresh-cookies")).click();  // refresh to check cookies in page UI
 
@@ -321,11 +321,11 @@ public class BrowserAgnosticTest {
         Options options = driver.manage();
 
         Set<Cookie> cookies = options.getCookies();  // read all cookies on page
-        assertThat(cookies).hasSize(2);  // default page has 2 cookies
+        assertEquals(cookies.size(), 2);  // default page has 2 cookies
 
         Cookie username = options.getCookieNamed("username");  // get username cookie
-        assertThat(username.getValue()).isEqualTo("John Doe");  // verify value of cookie
-        assertThat(username.getPath()).isEqualTo("/");  // verify path of cookie
+        assertEquals(username.getValue(), "John Doe");  // verify value of cookie
+        assertEquals(username.getPath(), "/");  // verify path of cookie
 
         driver.findElement(By.id("refresh-cookies")).click();  // refresh to check cookies in page UI
     }
@@ -341,7 +341,7 @@ public class BrowserAgnosticTest {
         options.addCookie(editedCookie);  // add updated cookie to page
 
         Cookie readCookie = options.getCookieNamed(username.getName()); // read cookie just added
-        assertThat(editedCookie.getValue()).isEqualTo(readCookie.getValue());     // verify cookie name updated
+        assertEquals(editedCookie.getValue(), readCookie.getValue());     // verify cookie name updated
 
         driver.findElement(By.id("refresh-cookies")).click();  // refresh to check cookies in page UI
     }
@@ -357,7 +357,7 @@ public class BrowserAgnosticTest {
 
         options.deleteCookie(username);   //  delete the username cookie
 
-        assertThat(options.getCookies()).hasSize(cookies.size() - 1);  // verifies a cookie got
+        assertEquals(options.getCookies().size(), (cookies.size() - 1));  // verifies a cookie got
                                                                                 // deleted from array
 
         driver.findElement(By.id("refresh-cookies")).click();  // refresh to check cookies in page UI
@@ -372,9 +372,8 @@ public class BrowserAgnosticTest {
         String optionLabel = "Three";
         select.selectByVisibleText(optionLabel);  // select option labeled "Three"
 
-        assertThat(select.getFirstSelectedOption().getText())
-                .isEqualTo(optionLabel); // verify default item displayed == "Three" option in dropdown
-
+        // verify default item displayed == "Three" option in dropdown
+        assertEquals(select.getFirstSelectedOption().getText(), optionLabel);
     }
     @Test
     public void testDataList() {
@@ -390,7 +389,7 @@ public class BrowserAgnosticTest {
         String optionValue = option.getAttribute("value"); // get 2nd option value ("New York")
         dataList.sendKeys(optionValue);  // enter "New York" to select that option of dropdown
 
-        assertThat(optionValue).isEqualTo("New York");  // verify text selected and typed is "New York"
+        assertEquals(optionValue, "New York");  // verify text selected and typed is "New York"
 
     }
     @Test
@@ -404,13 +403,13 @@ public class BrowserAgnosticTest {
         driver.switchTo().newWindow(WindowType.TAB);  // open new TAB
         String nextURL = "https://bonigarcia.dev/selenium-webdriver-java/web-form.html";
         driver.get(nextURL);  // open new page in TAB
-        assertThat(driver.getWindowHandles().size()).isEqualTo(2); // 2 window handles currently
+        assertEquals(driver.getWindowHandles().size(), 2); // 2 window handles currently
 
         String nextHandle = driver.getWindowHandle(); // grab handle of new TAB window
 
         driver.switchTo().window(initHandle);  // switch back to original window
         driver.close();                         // close original browser window
-        assertThat(driver.getWindowHandles().size()).isEqualTo(1);  // verify window handle count == 1
+        assertEquals(driver.getWindowHandles().size(), 1);  // verify window handle count == 1
 
         driver.switchTo().window(nextHandle);   // switch driver to TAB window via handle
         assertEquals(driver.getCurrentUrl(), nextURL); // verify current URL == TAB window URL
@@ -426,13 +425,13 @@ public class BrowserAgnosticTest {
         driver.switchTo().newWindow(WindowType.WINDOW);  // open new WINDOW
         String nextURL = "https://bonigarcia.dev/selenium-webdriver-java/web-form.html";
         driver.get(nextURL);  // open new page in NEW WINDOW
-        assertThat(driver.getWindowHandles().size()).isEqualTo(2); // 2 window handles currently
+        assertEquals(driver.getWindowHandles().size(), 2); // 2 window handles currently
 
         String nextHandle = driver.getWindowHandle(); // grab handle of new WINDOW
 
         driver.switchTo().window(initHandle);  // switch back to original window
         driver.close();                         // close original browser window
-        assertThat(driver.getWindowHandles().size()).isEqualTo(1);  // verify window handle count == 1
+        assertEquals(driver.getWindowHandles().size(), 1);  // verify window handle count == 1
 
         driver.switchTo().window(nextHandle);   // switch driver to NEW WINDOW via handle
         assertEquals(driver.getCurrentUrl(), nextURL); // verify current URL == NEW WINDOW URL
@@ -449,7 +448,7 @@ public class BrowserAgnosticTest {
         By pName = By.tagName("p");
         wait.until(ExpectedConditions.numberOfElementsToBeMoreThan(pName, 0)); // waiting for paragraphs
         List<WebElement> paragraphs = driver.findElements(pName); // find all paragraphs in iFrame
-        assertThat(paragraphs).hasSize(20); // verify 20 paragraphs found in iFrame
+        assertEquals(paragraphs.size(), 20); // verify 20 paragraphs found in iFrame
     }
     @Test
     public void testFrames() {
@@ -466,7 +465,7 @@ public class BrowserAgnosticTest {
         By pName = By.tagName("p");
         wait.until(ExpectedConditions.numberOfElementsToBeMoreThan(pName, 0)); // wait to load paragraphs
         List<WebElement> paragraphs = driver.findElements(pName);  // find all paragraphs in FRAME
-        assertThat(paragraphs).hasSize(20);  // verify 20 paragraphs found in FRAME
+        assertEquals(paragraphs.size(), 20);  // verify 20 paragraphs found in FRAME
     }
     @Test
     public void testAlerts() {
@@ -479,7 +478,7 @@ public class BrowserAgnosticTest {
         wait.until(ExpectedConditions.alertIsPresent()); // wait for alert to appear
         Alert alert = driver.switchTo().alert();         // put focus on alert UI
 
-        assertThat(alert.getText()).isEqualTo("Hello world!"); // verify alert UI text
+        assertEquals(alert.getText(), "Hello world!"); // verify alert UI text
 
         alert.accept();   // click OK on alert to dismiss
     }
@@ -494,7 +493,7 @@ public class BrowserAgnosticTest {
         wait.until(ExpectedConditions.alertIsPresent());  // wait for confirm to appear
         Alert confirm = driver.switchTo().alert();        // set focus on confirm UI
 
-        assertThat(confirm.getText()).isEqualTo("Is this correct?"); // verify confirm UI text
+        assertEquals(confirm.getText(), "Is this correct?"); // verify confirm UI text
 
         confirm.dismiss();  //click Cancel
         // cancel displays "You chose: false" text below web element on page
@@ -511,7 +510,7 @@ public class BrowserAgnosticTest {
         wait.until(ExpectedConditions.alertIsPresent()); // wait for prompt to appear
         Alert prompt = driver.switchTo().alert();        // set focus on prompt UI
 
-        assertThat(prompt.getText()).isEqualTo("Please enter your name"); // verify prompt UI text
+        assertEquals(prompt.getText(), "Please enter your name"); // verify prompt UI text
 
         prompt.sendKeys("John Doe"); // text input on prompt
         prompt.accept();
@@ -531,7 +530,7 @@ public class BrowserAgnosticTest {
         WebElement close = driver
                 .findElement(By.xpath("//button[text() = 'Close']")); // find modal Close button
 
-        assertThat(close.getTagName()).isEqualTo("button"); // verify tag name on Close button
+        assertEquals(close.getTagName(), "button"); // verify tag name on Close button
 
         wait.until(ExpectedConditions.elementToBeClickable(close));  // wait for modal to be clicked
         close.click();  // click modal close button
@@ -547,10 +546,10 @@ public class BrowserAgnosticTest {
 
         SessionStorage sessionStorage = webStorage.getSessionStorage();
 
-        assertThat(sessionStorage.size()).isEqualTo(2);
+        assertEquals(sessionStorage.size(), 2);
 
         sessionStorage.setItem("new element", "new value");
-        assertThat(sessionStorage.size()).isEqualTo(3);
+        assertEquals(sessionStorage.size(), 3);
 
         driver.findElement(By.id("display-session")).click();
     }
