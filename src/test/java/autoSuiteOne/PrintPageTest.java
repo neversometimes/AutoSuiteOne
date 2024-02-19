@@ -48,8 +48,7 @@ public class PrintPageTest {
 
         Path destinationFile = Paths.get("my-pdf.pdf");
         Files.write(destinationFile, decodedImg);               // write out byte array as PDF file
-
-
+        
     }
 
 } // end class
