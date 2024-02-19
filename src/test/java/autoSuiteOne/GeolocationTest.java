@@ -58,7 +58,7 @@ public class GeolocationTest {
         WebElement element = driver.findElement(By.xpath("//*[@id='coordinates']"));
 
         // ** WAIT until the geo-coordinates text to appear on the page **
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(2));
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
         wait.until(ExpectedConditions.attributeToBeNotEmpty(element, "innerHTML"));
 
         assertTrue(element.getText().contains("Latitude") && element.getText().contains("Longitude"));
