@@ -185,6 +185,8 @@ public class BrowserAgnosticTest {
 
         driver.manage().timeouts().scriptTimeout(Duration.ofSeconds(3)); // set Script load timeout = 3s
 
+    //  ** NOTE: Commented out since this is based on assertJ dependency
+    /*
         assertThatThrownBy(() -> {
             long waitMillis = Duration.ofSeconds(5).toMillis(); // set Script wait time = 5s
             String script = "const callback = arguments[arguments.length - 1];"
@@ -192,6 +194,9 @@ public class BrowserAgnosticTest {
             js.executeAsyncScript(script);
         }).isInstanceOf(ScriptTimeoutException.class); // throws an exception because script execution time (5s)
                                                         // is greater than script timeout (3s)
+
+
+     */
     }
     @Test
     public void testPageScreenShotPng() throws IOException {
