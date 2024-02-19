@@ -23,7 +23,7 @@ public class WebDriverBiDiTest {
     WebDriver driver;
 
     @BeforeSuite
-    static void setupClass() {
+    void setupClass() {
         WebDriverManager.chromedriver().setup();
     }
 

@@ -13,7 +13,7 @@ public class BasicAuthTest {
     WebDriver driver;
 
     @BeforeSuite
-    static void setupClass() {WebDriverManager.chromedriver().setup();}
+    void setupClass() {WebDriverManager.chromedriver().setup();}
 
     @BeforeTest
     void setup () {driver = WebDriverManager.chromedriver().create();}

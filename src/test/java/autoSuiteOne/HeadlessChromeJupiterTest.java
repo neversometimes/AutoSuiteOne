@@ -23,7 +23,7 @@ public class HeadlessChromeJupiterTest {
     WebDriver driver;
 
     @BeforeSuite
-    static void setupClass() {
+    void setupClass() {
         WebDriverManager.chromedriver().setup();
     }
 

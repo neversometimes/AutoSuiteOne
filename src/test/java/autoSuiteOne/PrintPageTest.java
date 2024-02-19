@@ -23,7 +23,7 @@ public class PrintPageTest {
     WebDriver driver;
 
     @BeforeSuite
-    static void setupClass() {
+    void setupClass() {
         WebDriverManager.chromedriver().setup();
     }
 

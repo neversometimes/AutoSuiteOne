@@ -17,7 +17,7 @@ public class IncognitoModeTest {
 
     private WebDriver driver;
     @BeforeSuite
-    static void setupClass() {
+    void setupClass() {
         WebDriverManager.chromedriver().setup();
     }
     @BeforeTest
