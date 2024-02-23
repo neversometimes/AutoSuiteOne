@@ -1,6 +1,10 @@
 package autoSuiteOne;
 
+import static io.github.bonigarcia.wdm.WebDriverManager.isOnline;
 import static org.testng.AssertJUnit.*;
+
+import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.remote.RemoteWebDriver;
 import org.testng.annotations.*;
 
 import org.openqa.selenium.By;
@@ -14,22 +18,33 @@ import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 public class LocatingElementsTest {
     WebDriver driver;
+    @BeforeClass
+    void setupClass () {
+        WebDriverManager.chromedriver().setup();
+    }
 
-    @BeforeSuite
-    void setup() {
-        driver = WebDriverManager.chromedriver().create();
+    @BeforeMethod
+    void setup() throws MalformedURLException {
 
-        // load test web site page for ALL LocatingElementsTest class methods
+        URL seleniumServerURL = new URL("http://localhost:4444");
+        assertTrue(isOnline(seleniumServerURL));
+
+        ChromeOptions options = new ChromeOptions();
+        driver = new RemoteWebDriver(seleniumServerURL, options);
+
+        // ** load test web site page for ALL LocatingElementsTest class methods **
         driver.get("https://bonigarcia.dev/selenium-webdriver-java/web-form.html");
     }
 
-    @AfterSuite
+    @AfterMethod
     void teardown() {
         driver.quit();
     }

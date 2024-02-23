@@ -19,6 +19,9 @@ public class LocalizationTest {
 
     WebDriver driver;
     String lang;
+
+
+
     @BeforeTest
     void setup(){
 

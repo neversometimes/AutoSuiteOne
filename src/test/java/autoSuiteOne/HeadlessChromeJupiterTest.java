@@ -7,37 +7,44 @@ import io.github.bonigarcia.wdm.WebDriverManager;
 //import org.junit.jupiter.api.Test;
 //import static org.assertj.core.api.Assertions.*;
 
-import org.testng.annotations.AfterTest;
-import org.testng.annotations.BeforeSuite;
-import org.testng.annotations.BeforeTest;
-import org.testng.annotations.Test;
+import org.openqa.selenium.remote.RemoteWebDriver;
+import org.testng.annotations.*;
+
+import static io.github.bonigarcia.wdm.WebDriverManager.isOnline;
 import static org.testng.AssertJUnit.*;
 
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.*;
 
+import java.net.MalformedURLException;
+import java.net.URL;
+
 
 public class HeadlessChromeJupiterTest {
 
     WebDriver driver;
 
-    @BeforeSuite
+    @BeforeClass
     void setupClass() {
         WebDriverManager.chromedriver().setup();
     }
 
-    @BeforeTest
-    void setup() {
+    @BeforeMethod
+    void setup() throws MalformedURLException {
         ChromeOptions options = new ChromeOptions();
 
-        options.addArguments("--headless");
-        // options.setHeadless(true);         Not sure why this doesn't recognize options.setHeadless
+        options.addArguments("--headless"); // CLI argument when starting Chrome: headless mode
 
-        driver = new ChromeDriver(options);
+
+        URL seleniumServerURL = new URL("http://localhost:4444");
+        assertTrue(isOnline(seleniumServerURL));
+
+        driver = new RemoteWebDriver(seleniumServerURL, options);
+
     }
 
-    @AfterTest
+    @AfterMethod
     void teardown() {
         driver.quit();
     }
@@ -49,8 +56,5 @@ public class HeadlessChromeJupiterTest {
         assertTrue (driver.getTitle().contains("Selenium WebDriver"));
 
     }
-
-
-
 
 }

@@ -10,11 +10,13 @@ import org.openqa.selenium.remote.CapabilityType;
 import org.openqa.selenium.remote.RemoteWebDriver;
 
 
-import org.testng.annotations.AfterTest;
-import org.testng.annotations.BeforeTest;
-import org.testng.annotations.Test;
+import org.testng.annotations.*;
+
+import static io.github.bonigarcia.wdm.WebDriverManager.isOnline;
 import static org.testng.AssertJUnit.*;
 
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.time.Duration;
 
 public class PageLoadChromeJupiterTest {
@@ -23,16 +25,26 @@ public class PageLoadChromeJupiterTest {
 
     PageLoadStrategy pageLoadStrategy;
 
-    @BeforeTest
-    void setup() {
+    @BeforeClass
+    void setupClass(){
+        WebDriverManager.chromedriver().setup();
+    }
+
+    @BeforeMethod
+    void setup() throws MalformedURLException {
+
         ChromeOptions options = new ChromeOptions();
         pageLoadStrategy = PageLoadStrategy.NORMAL;   // set page load strategy to NORMAL
         options.setPageLoadStrategy(pageLoadStrategy);
 
-        driver = WebDriverManager.chromedriver().capabilities(options).create();
+        URL seleniumServerURL = new URL("http://localhost:4444");
+        assertTrue(isOnline(seleniumServerURL));
+
+        driver = new RemoteWebDriver(seleniumServerURL, options);
+
     }
 
-    @AfterTest
+    @AfterMethod
     void teardown() {
         driver.quit();
     }
@@ -46,7 +58,7 @@ public class PageLoadChromeJupiterTest {
         Capabilities capabilities = ((RemoteWebDriver) driver).getCapabilities();
         Object pageLoad = capabilities.getCapability(CapabilityType.PAGE_LOAD_STRATEGY);
         String browserName = capabilities.getBrowserName();
-
+        System.out.println(browserName);
         assertEquals(pageLoad, (pageLoadStrategy.toString()));
     }
 

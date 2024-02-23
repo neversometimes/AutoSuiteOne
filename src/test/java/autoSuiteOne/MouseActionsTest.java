@@ -1,30 +1,45 @@
 package autoSuiteOne;
 
+import static io.github.bonigarcia.wdm.WebDriverManager.isOnline;
 import static org.testng.AssertJUnit.*;
 
-import org.apache.commons.lang3.SystemUtils;
 import org.openqa.selenium.*;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.support.locators.RelativeLocator;
 
 import org.testng.annotations.*;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
 
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.time.Duration;
 import java.util.Arrays;
 import java.util.List;
 
 public class MouseActionsTest {
 
     WebDriver driver;
+    @BeforeClass
+    void setupClass() {
+        WebDriverManager.chromedriver().setup();
+    }
 
-    @BeforeSuite
-    void setup() {
-        driver = WebDriverManager.chromedriver().create();
+
+    @BeforeMethod
+    void setup() throws MalformedURLException {
+
+        URL seleniumServerURL = new URL("http://localhost:4444");
+        assertTrue(isOnline(seleniumServerURL));
+
+        ChromeOptions options = new ChromeOptions();
+        driver = new RemoteWebDriver(seleniumServerURL, options);
 
     }
 
-    @AfterSuite
+    @AfterMethod
     void teardown() {
         driver.quit();
     }
@@ -54,13 +69,32 @@ public class MouseActionsTest {
         // load test web site page
         driver.get("https://bonigarcia.dev/selenium-webdriver-java/web-form.html");
 
-        WebElement checkbox2 = driver.findElement(By.id("my-check-2"));
-        checkbox2.click();
-        assertTrue(checkbox2.isSelected());
+        WebElement checkbox2 = driver.findElement(By.id("my-check-2"));  //Default checkbox
+        assertFalse(checkbox2.isSelected());  // verify default state is not selected
 
-        WebElement radio2 = driver.findElement(By.id("my-radio-2"));
-        radio2.click();
-        assertTrue(radio2.isSelected());
+        // Actions doesn't seem to require the control to be visible on the screen
+        new Actions(driver)
+                .click(checkbox2)
+                .pause(Duration.ofSeconds(3))
+                .perform();
+
+        assertTrue(checkbox2.isSelected());  // verify Default checkbox is now selected
+
+        WebElement radio1 = driver.findElement(By.id("my-radio-1"));  // Checked Radio btn
+        assertTrue(radio1.isSelected());        // verify default state is selected
+
+        WebElement radio2 = driver.findElement(By.id("my-radio-2"));  //Default Radio btn
+        assertFalse(radio2.isSelected());                   // verfiy default state is not selected
+
+        //radio2.click();  // .click() seems to require the control to be visible - this was intermittent
+        new Actions(driver)
+                .click(radio2)
+                .pause(Duration.ofSeconds(3))
+                .perform();
+
+        assertFalse(radio1.isSelected()); // verify new state Checked Radio is NOT selected
+        assertTrue(radio2.isSelected());  // verfiy new state Default Radio is Selected
+
     }
 
     @Test
@@ -146,17 +180,27 @@ public class MouseActionsTest {
     @Test
     void testCopyAndPaste() {
 
+        // SystemUtils doesn't work with RemoteWebDriver. Gets hub properties and not node properties
+        //Keys modifier = SystemUtils.IS_OS_MAC ? Keys.COMMAND : Keys.CONTROL;
+
         driver.get("https://bonigarcia.dev/selenium-webdriver-java/web-form.html");
-        Actions actions = new Actions(driver);
 
         WebElement inputText = driver.findElement(By.name("my-text"));
         WebElement textArea = driver.findElement(By.name("my-textarea"));
 
-        Keys modifier = SystemUtils.IS_OS_MAC ? Keys.COMMAND : Keys.CONTROL;
-        actions.sendKeys(inputText, "hello world").keyDown(modifier)
-                .sendKeys(inputText, "a").sendKeys(inputText, "c")
-                .sendKeys(textArea, "v").build().perform();
+        Actions actions = new Actions(driver);
 
+        actions.sendKeys(inputText, "Good-ay Mate!")
+                .pause(Duration.ofSeconds(3))
+                .keyDown(Keys.CONTROL)
+                .sendKeys(inputText, "a")
+                .sendKeys(inputText, "c")
+                .pause(Duration.ofSeconds(3))
+                .sendKeys(textArea, "v")
+                .pause(Duration.ofSeconds(3))
+                .perform();
+
+        // verify the copy-paste action; source and target strings match
         assertEquals(inputText.getAttribute("value"), textArea.getAttribute("value"));
 
     }

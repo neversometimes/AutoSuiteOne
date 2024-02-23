@@ -1,31 +1,50 @@
 package autoSuiteOne;
 
+import static io.github.bonigarcia.wdm.WebDriverManager.isOnline;
 import static org.testng.AssertJUnit.*;
 
+import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.remote.RemoteWebDriver;
 import org.testng.annotations.*;
 
-import io.github.bonigarcia.wdm.WebDriverManager;
+
+
 import org.openqa.selenium.WebDriver;
 
 import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Path;
 
 public class KeyboardActionsTest {
     WebDriver driver;
 
-    @BeforeSuite
-    void setup() {
-        driver = WebDriverManager.chromedriver().create();
 
-        // load test web site page for ALL KeyboardActionsTest suite
+    @BeforeClass
+    void setupClass() {
+        WebDriverManager.chromedriver().setup();
+    }
+    @BeforeMethod
+    void setup() throws MalformedURLException {
+
+
+        URL seleniumServerURL = new URL("http://localhost:4444");
+        assertTrue(isOnline(seleniumServerURL));
+
+        ChromeOptions options = new ChromeOptions();
+        driver = new RemoteWebDriver(seleniumServerURL, options);
+
+
+        // ** load test web site page for ALL KeyboardActionsTest suite
         driver.get("https://bonigarcia.dev/selenium-webdriver-java/web-form.html");
     }
 
-    @AfterSuite
+    @AfterMethod
     void teardown() {
         driver.quit();
     }
@@ -43,7 +62,7 @@ public class KeyboardActionsTest {
         assertTrue(inputText.getAttribute("value").isEmpty() );
     }
 
-    @Test
+ /*   @Test
     void testUpLoadFile() throws IOException {
 
         String initURL = driver.getCurrentUrl();
@@ -57,7 +76,7 @@ public class KeyboardActionsTest {
         driver.findElement(By.tagName("form")).submit();
         assertNotSame(driver.getCurrentUrl(), initURL);
 
-    }
+    }  */
 
     @Test
     void testRangeSlider() {

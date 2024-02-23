@@ -4,21 +4,28 @@ import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
-import org.testng.annotations.AfterTest;
-import org.testng.annotations.BeforeTest;
-import org.testng.annotations.Test;
+import org.openqa.selenium.remote.RemoteWebDriver;
+import org.testng.annotations.*;
 
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
 
+import static io.github.bonigarcia.wdm.WebDriverManager.isOnline;
 import static org.testng.AssertJUnit.*;
 
 public class OSNotificationsTest {
 
     WebDriver driver;
 
-    @BeforeTest
-    void setup() {
+    @BeforeClass
+    void setupClass(){
+        WebDriverManager.chromedriver().setup();
+    }
+
+    @BeforeMethod
+    void setup() throws MalformedURLException {
         //  This setup section includes code to allow notifications in Chrome
 
         ChromeOptions options = new ChromeOptions();
@@ -26,10 +33,13 @@ public class OSNotificationsTest {
         prefs.put("profile.default_content_setting_values.notifications", 1);
         options.setExperimentalOption("prefs", prefs);
 
-        driver = WebDriverManager.chromedriver().capabilities(options).create();
+        URL seleniumServerURL = new URL("http://localhost:4444");
+        assertTrue(isOnline(seleniumServerURL));
+
+        driver = new RemoteWebDriver(seleniumServerURL, options);
 
     }
-    @AfterTest
+    @AfterMethod
     void teardown() {
         driver.quit();
     }

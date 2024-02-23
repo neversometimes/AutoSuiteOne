@@ -1,7 +1,10 @@
 package autoSuiteOne;
 
+import static io.github.bonigarcia.wdm.WebDriverManager.isOnline;
 import static java.lang.invoke.MethodHandles.lookup;
 import static org.slf4j.LoggerFactory.getLogger;
+
+import org.openqa.selenium.remote.RemoteWebDriver;
 import org.slf4j.Logger;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
@@ -10,11 +13,13 @@ import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.logging.LogEntries;
 import org.openqa.selenium.logging.LogType;
 import org.openqa.selenium.logging.LoggingPreferences;
-import org.testng.annotations.AfterTest;
-import org.testng.annotations.BeforeTest;
-import org.testng.annotations.Test;
-import static org.testng.Assert.*;
+import org.testng.annotations.*;
 
+import static org.testng.Assert.*;
+import static org.testng.AssertJUnit.assertTrue;
+
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.logging.Level;
 
 public class LogGatheringTest {
@@ -23,19 +28,26 @@ public class LogGatheringTest {
 
     static final Logger log = getLogger(lookup().lookupClass());
 
+    @BeforeClass
+    void setupClass() {
+        WebDriverManager.chromedriver().setup();
+    }
 
-    @BeforeTest
-    void setup() {
+    @BeforeMethod
+    void setup() throws MalformedURLException {
         LoggingPreferences logs = new LoggingPreferences();
         logs.enable(LogType.BROWSER, Level.ALL);
 
         ChromeOptions options = new ChromeOptions();
         options.setCapability(ChromeOptions.LOGGING_PREFS, logs);
 
-        driver = WebDriverManager.chromedriver().capabilities(options).create();
+        URL seleniumServerURL = new URL("http://localhost:4444");
+        assertTrue(isOnline(seleniumServerURL));
+
+        driver = new RemoteWebDriver(seleniumServerURL, options);
     }
 
-    @AfterTest
+    @AfterMethod
     void teardown() {
         driver.quit();
     }

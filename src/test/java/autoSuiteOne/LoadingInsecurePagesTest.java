@@ -4,26 +4,40 @@ import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.support.Color;
-import org.testng.annotations.AfterTest;
-import org.testng.annotations.BeforeTest;
-import org.testng.annotations.Test;
+import org.testng.annotations.*;
 
+import java.net.MalformedURLException;
+import java.net.URL;
+
+import static io.github.bonigarcia.wdm.WebDriverManager.isOnline;
 import static org.testng.Assert.*;
+import static org.testng.AssertJUnit.assertTrue;
 
 public class LoadingInsecurePagesTest {
 
     WebDriver driver;
-    @BeforeTest
-    void setup() {
+
+    @BeforeClass
+    void setupClass() {
+        WebDriverManager.chromedriver().setup();
+    }
+
+    @BeforeMethod
+    void setup() throws MalformedURLException {
+
         ChromeOptions options = new ChromeOptions();
         options.setAcceptInsecureCerts(true);  // enable capability to allow insecure certs
 
-        driver = WebDriverManager.chromedriver().capabilities(options).create();
+        URL seleniumServerURL = new URL("http://localhost:4444");
+        assertTrue(isOnline(seleniumServerURL));
+
+        driver = new RemoteWebDriver(seleniumServerURL, options);
 
     }
 
-    @AfterTest
+    @AfterMethod
     void teardown() {
         driver.quit();
     }

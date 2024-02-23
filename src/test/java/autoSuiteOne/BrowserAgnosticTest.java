@@ -1,6 +1,11 @@
 package autoSuiteOne;
 
+import static io.github.bonigarcia.wdm.WebDriverManager.isOnline;
+import static org.testng.Assert.assertTrue;
 import static org.testng.AssertJUnit.*;             // TestNG
+
+import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.remote.RemoteWebDriver;
 import org.testng.annotations.*;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
@@ -17,6 +22,8 @@ import org.openqa.selenium.WebDriver.*;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -30,12 +37,22 @@ public class BrowserAgnosticTest {
     static JavascriptExecutor js;
     static TakesScreenshot ts;
 
-    @BeforeSuite
-    void setup() {
-        driver = WebDriverManager.chromedriver().create();
+
+   @BeforeClass
+   void setupClass() {
+       WebDriverManager.chromedriver().setup();
+   }
+
+    @BeforeMethod
+    void setup() throws MalformedURLException {
+        URL seleniumServerUrl = new URL("http://localhost:4444/");
+        assertTrue(isOnline(seleniumServerUrl));
+
+        ChromeOptions options = new ChromeOptions();
+        driver = new RemoteWebDriver(seleniumServerUrl, options);
 
     }
-    @AfterSuite
+    @AfterMethod
     void teardown() {
         driver.quit();
     }
@@ -158,7 +175,7 @@ public class BrowserAgnosticTest {
 
         //  This is an example of a negative test.
         //  the assert expects an WebDriver timeout exception to be thrown.
-        //  Need to use Try/Catch block
+        //  TO DO:  Need to use Try/Catch block
 
         assertThatThrownBy(() -> driver
                 .get("https://bonigarcia.dev/selenium-webdriver-java/"))  // load web page
@@ -176,6 +193,7 @@ public class BrowserAgnosticTest {
         driver.manage().timeouts().scriptTimeout(Duration.ofSeconds(3)); // set Script load timeout = 3s
 
     //  ** NOTE: Commented out since this is based on assertJ dependency
+        //  TO DO:  look for TestNG supported solution
     /*
         assertThatThrownBy(() -> {
             long waitMillis = Duration.ofSeconds(5).toMillis(); // set Script wait time = 5s
@@ -472,7 +490,7 @@ public class BrowserAgnosticTest {
 
         confirm.dismiss();  //click Cancel
         // cancel displays "You chose: false" text below web element on page
-        // add assert to verify?
+        // TO DO:  add assert to verify?
     }
     @Test
     public void testPrompts() {
@@ -510,8 +528,11 @@ public class BrowserAgnosticTest {
         // verify other text on modal
         // verify text below modal web element that is returned from modal alert action
     }
-    @Test
+/*    @Test
     public void testWebStorage() {
+
+        // WebStorage and SessionStorage objects are deprecated
+        // TO DO : rewrite using updated object references
 
         driver.get("https://bonigarcia.dev/selenium-webdriver-java/web-storage.html");
         WebStorage webStorage = (WebStorage) driver;
@@ -525,5 +546,6 @@ public class BrowserAgnosticTest {
 
         driver.findElement(By.id("display-session")).click();
     }
+*/
 
 } //close class
