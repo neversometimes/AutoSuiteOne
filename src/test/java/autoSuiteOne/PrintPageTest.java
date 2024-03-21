@@ -5,10 +5,8 @@ import org.openqa.selenium.Pdf;
 import org.openqa.selenium.PrintsPage;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.print.PrintOptions;
-import org.testng.annotations.AfterTest;
-import org.testng.annotations.BeforeSuite;
-import org.testng.annotations.BeforeTest;
-import org.testng.annotations.Test;
+import org.testng.annotations.*;
+
 import static org.testng.Assert.*;
 
 import java.io.IOException;
@@ -22,15 +20,15 @@ public class PrintPageTest {
 
     WebDriver driver;
 
-    @BeforeSuite
+    @BeforeClass
     void setupClass() {
         WebDriverManager.chromedriver().setup();
     }
 
-    @BeforeTest
+    @BeforeMethod
     void setup () {driver = WebDriverManager.chromedriver().create();}
 
-    @AfterTest
+    @AfterMethod
     void teardown() {driver.quit();}
 
     @Test
