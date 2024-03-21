@@ -8,10 +8,7 @@ import org.openqa.selenium.devtools.NetworkInterceptor;
 import org.openqa.selenium.remote.http.Contents;
 import org.openqa.selenium.remote.http.HttpResponse;
 import org.openqa.selenium.remote.http.Route;
-import org.testng.annotations.AfterTest;
-import org.testng.annotations.BeforeSuite;
-import org.testng.annotations.BeforeTest;
-import org.testng.annotations.Test;
+import org.testng.annotations.*;
 
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -23,18 +20,18 @@ public class NetworkInterceptorTest {
 
     WebDriver driver;
 
-    @BeforeSuite
+    @BeforeClass
     void setupClass() {
        WebDriverManager.chromedriver().setup();
     }
 
-    @BeforeTest
+    @BeforeMethod
     void setup () {
         driver = WebDriverManager.chromedriver().create();
 
     }
 
-    @AfterTest
+    @AfterMethod
     void teardown() {
         driver.quit();
     }
