@@ -26,12 +26,12 @@ public class WebDriverBiDiTest {
 
     WebDriver driver;
 
-    @BeforeSuite
+    @BeforeClass
     void setupClass() {
         WebDriverManager.chromedriver().setup();
     }
 
-    @BeforeTest
+    @BeforeMethod
     void setup () {
         // **** LOCAL TESTS ONLY ****
 
@@ -40,7 +40,7 @@ public class WebDriverBiDiTest {
 
     }
 
-    @AfterTest
+    @AfterMethod
     void teardown() {driver.quit();}
 
     @Test

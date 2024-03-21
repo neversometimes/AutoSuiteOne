@@ -4,10 +4,8 @@ import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
-import org.testng.annotations.AfterTest;
-import org.testng.annotations.BeforeSuite;
-import org.testng.annotations.BeforeTest;
-import org.testng.annotations.Test;
+import org.testng.annotations.*;
+
 import static org.testng.Assert.*;
 
 import java.net.URISyntaxException;
@@ -19,12 +17,12 @@ public class WebExtensionTest {
 
     WebDriver driver;
 
-    @BeforeSuite
+    @BeforeClass
     void setupClass() {
         WebDriverManager.chromedriver().setup();
     }
 
-    @BeforeTest
+    @BeforeMethod
     void setup () throws URISyntaxException {
 
         // path to web extension which sets background color of web pages to black
@@ -36,7 +34,7 @@ public class WebExtensionTest {
         driver = WebDriverManager.chromedriver().capabilities(options).create();
     }
 
-    @AfterTest
+    @AfterMethod
     void teardown() {driver.quit();}
 
     @Test
