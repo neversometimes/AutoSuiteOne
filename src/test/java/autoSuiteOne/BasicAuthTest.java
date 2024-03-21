@@ -10,8 +10,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 
 import static io.github.bonigarcia.wdm.WebDriverManager.isOnline;
-import static org.testng.Assert.*;
-import static org.testng.AssertJUnit.assertTrue;
+import static org.testng.AssertJUnit.*;
 
 public class BasicAuthTest {
     WebDriver driver;
@@ -41,7 +40,7 @@ public class BasicAuthTest {
         //((HasAuthentication) driver).register(() -> new UsernameAndPassword("guest", "guest"));
         //driver.get("https://jigsaw.w3.org/HTTP/Basic/");  // test site protected with basic auth
 
-        // ** Send creds using protocol://username:password@domain  **
+        // ** Send creds using protocol://username:password@domain  **  PRIMO WORKAROUND for remote or local runs
         String authURL = "https://guest:guest@jigsaw.w3.org/HTTP/Basic/";
         driver.get(authURL);
 
