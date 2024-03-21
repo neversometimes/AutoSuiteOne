@@ -3,17 +3,21 @@ package autoSuiteOne;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.openqa.selenium.virtualauthenticator.HasVirtualAuthenticator;
 import org.openqa.selenium.virtualauthenticator.VirtualAuthenticator;
 import org.openqa.selenium.virtualauthenticator.VirtualAuthenticatorOptions;
-import org.testng.annotations.AfterTest;
-import org.testng.annotations.BeforeSuite;
-import org.testng.annotations.BeforeTest;
-import org.testng.annotations.Test;
-import static org.testng.Assert.*;
+import org.testng.annotations.*;
 
+import static io.github.bonigarcia.wdm.WebDriverManager.isOnline;
+import static org.testng.Assert.*;
+import static org.testng.AssertJUnit.assertTrue;
+
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.time.Duration;
 import java.util.UUID;
 
@@ -21,15 +25,22 @@ public class WebAuthenticationTest {
 
      WebDriver driver;
 
-    @BeforeSuite
+    @BeforeClass
     void setupClass() {
         WebDriverManager.chromedriver().setup();
     }
 
-    @BeforeTest
-    void setup () {driver = WebDriverManager.chromedriver().create();}
+    @BeforeMethod
+    void setup () throws MalformedURLException {
 
-    @AfterTest
+        URL seleniumServerURL = new URL("http://localhost:4444");
+        assertTrue(isOnline(seleniumServerURL));
+
+        ChromeOptions options = new ChromeOptions();
+        driver = new RemoteWebDriver(seleniumServerURL, options);
+    }
+
+    @AfterMethod
     void teardown() {driver.quit();}
 
     @Test
