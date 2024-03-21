@@ -11,15 +11,12 @@ import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.testng.annotations.*;
 
-
-
 import org.openqa.selenium.WebDriver;
 
-import java.io.IOException;
+
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.nio.file.Files;
-import java.nio.file.Path;
+
 
 public class KeyboardActionsTest {
     WebDriver driver;
@@ -62,21 +59,6 @@ public class KeyboardActionsTest {
         assertTrue(inputText.getAttribute("value").isEmpty() );
     }
 
- /*   @Test
-    void testUpLoadFile() throws IOException {
-
-        String initURL = driver.getCurrentUrl();
-
-        WebElement inputFile = driver.findElement(By.name("my-file"));  //select file input element
-
-        Path tempFile = Files.createTempFile("tempfiles", ".tmp"); // create temp file
-        String filename = tempFile.toAbsolutePath().toString();
-        inputFile.sendKeys(filename);
-
-        driver.findElement(By.tagName("form")).submit();
-        assertNotSame(driver.getCurrentUrl(), initURL);
-
-    }  */
 
     @Test
     void testRangeSlider() {
