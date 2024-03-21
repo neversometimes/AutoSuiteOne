@@ -5,15 +5,19 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.devtools.events.CdpEventTypes;
 import org.openqa.selenium.devtools.events.DomMutationEvent;
 import org.openqa.selenium.logging.HasLogEvents;
-import org.testng.annotations.AfterTest;
-import org.testng.annotations.BeforeSuite;
-import org.testng.annotations.BeforeTest;
-import org.testng.annotations.Test;
-import static org.testng.Assert.*;
+import org.openqa.selenium.remote.RemoteWebDriver;
+import org.testng.annotations.*;
 
+import static io.github.bonigarcia.wdm.WebDriverManager.isOnline;
+import static org.testng.Assert.*;
+import static org.testng.AssertJUnit.assertTrue;
+
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicReference;
@@ -28,7 +32,13 @@ public class WebDriverBiDiTest {
     }
 
     @BeforeTest
-    void setup () {driver = WebDriverManager.chromedriver().create();}
+    void setup () {
+        // **** LOCAL TESTS ONLY ****
+
+        ChromeOptions options = new ChromeOptions();
+        driver = WebDriverManager.chromedriver().create();
+
+    }
 
     @AfterTest
     void teardown() {driver.quit();}
