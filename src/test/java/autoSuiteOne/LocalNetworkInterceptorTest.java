@@ -36,7 +36,7 @@ public class LocalNetworkInterceptorTest {
         driver.quit();
     }
 
-    @Test
+    @Test (description = "Network Interceptor test")
     void testNetworkInterceptor() throws Exception {
         // load local img test resource (only found under src/test/resources) : 128x128 PNG file
         Path img = Paths.get(ClassLoader.getSystemResource("tools.png").toURI());
