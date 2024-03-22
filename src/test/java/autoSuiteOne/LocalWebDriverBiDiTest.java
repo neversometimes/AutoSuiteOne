@@ -20,7 +20,7 @@ import java.util.concurrent.atomic.AtomicReference;
 
 import static org.testng.AssertJUnit.assertTrue;
 
-public class WebDriverBiDiTest {
+public class LocalWebDriverBiDiTest {
 
     WebDriver driver;
 

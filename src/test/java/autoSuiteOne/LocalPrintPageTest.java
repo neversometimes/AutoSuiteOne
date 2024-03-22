@@ -16,7 +16,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Base64;
 
-public class PrintPageTest {
+public class LocalPrintPageTest {
 
     WebDriver driver;
 

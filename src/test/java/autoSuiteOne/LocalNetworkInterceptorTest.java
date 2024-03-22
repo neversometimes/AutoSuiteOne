@@ -16,7 +16,7 @@ import java.nio.file.Paths;
 
 import static org.testng.Assert.*;
 
-public class NetworkInterceptorTest {
+public class LocalNetworkInterceptorTest {
 
     WebDriver driver;
 
