@@ -13,7 +13,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 
 
-public class WebExtensionTest {
+public class LocalWebExtensionTest {
 
     WebDriver driver;
 

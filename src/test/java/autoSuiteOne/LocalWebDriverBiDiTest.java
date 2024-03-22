@@ -9,18 +9,16 @@ import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.devtools.events.CdpEventTypes;
 import org.openqa.selenium.devtools.events.DomMutationEvent;
 import org.openqa.selenium.logging.HasLogEvents;
-import org.openqa.selenium.remote.RemoteWebDriver;
-import org.testng.annotations.*;
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.BeforeClass;
+import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Test;
 
-import static io.github.bonigarcia.wdm.WebDriverManager.isOnline;
-import static org.testng.Assert.*;
-import static org.testng.AssertJUnit.assertTrue;
-
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicReference;
+
+import static org.testng.AssertJUnit.assertTrue;
 
 public class WebDriverBiDiTest {
 
