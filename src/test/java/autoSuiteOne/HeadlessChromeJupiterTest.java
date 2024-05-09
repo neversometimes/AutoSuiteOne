@@ -37,10 +37,12 @@ public class HeadlessChromeJupiterTest {
         options.addArguments("--headless"); // CLI argument when starting Chrome: headless mode
 
 
-        URL seleniumServerURL = new URL("http://localhost:4444");
-        assertTrue(isOnline(seleniumServerURL));
+        //URL seleniumServerURL = new URL("http://localhost:4444");
+        //assertTrue(isOnline(seleniumServerURL));
 
-        driver = new RemoteWebDriver(seleniumServerURL, options);
+        //driver = new RemoteWebDriver(seleniumServerURL, options);
+
+        driver = new ChromeDriver();
 
     }
 

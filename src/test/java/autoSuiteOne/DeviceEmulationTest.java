@@ -7,6 +7,7 @@ import io.github.bonigarcia.wdm.WebDriverManager;
 //import static org.assertj.core.api.Assertions.*;
 //import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.testng.annotations.*;
 
@@ -37,8 +38,8 @@ public class DeviceEmulationTest {
     @BeforeMethod
     void setup() throws MalformedURLException {
 
-        URL seleniumServerUrl = new URL("http://localhost:4444/");
-        assertTrue(isOnline(seleniumServerUrl));
+        //URL seleniumServerUrl = new URL("http://localhost:4444/");
+        //assertTrue(isOnline(seleniumServerUrl));
 
         ChromeOptions options = new ChromeOptions();
 
@@ -46,8 +47,8 @@ public class DeviceEmulationTest {
         mobileEmulation.put("deviceName", "iPhone 6/7/8");
         options.setExperimentalOption("mobileEmulation", mobileEmulation);
 
-        driver = new RemoteWebDriver(seleniumServerUrl, options);
-
+        //driver = new RemoteWebDriver(seleniumServerUrl, options);
+        driver = new ChromeDriver();
     }
 
     @AfterTest

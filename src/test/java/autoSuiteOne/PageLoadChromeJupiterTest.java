@@ -5,6 +5,7 @@ import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.Capabilities;
 import org.openqa.selenium.PageLoadStrategy;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.remote.CapabilityType;
 import org.openqa.selenium.remote.RemoteWebDriver;
@@ -37,11 +38,12 @@ public class PageLoadChromeJupiterTest {
         pageLoadStrategy = PageLoadStrategy.NORMAL;   // set page load strategy to NORMAL
         options.setPageLoadStrategy(pageLoadStrategy);
 
-        URL seleniumServerURL = new URL("http://localhost:4444");
-        assertTrue(isOnline(seleniumServerURL));
+        //URL seleniumServerURL = new URL("http://localhost:4444");
+        //assertTrue(isOnline(seleniumServerURL));
 
-        driver = new RemoteWebDriver(seleniumServerURL, options);
+        //driver = new RemoteWebDriver(seleniumServerURL, options);
 
+        driver = new ChromeDriver();
     }
 
     @AfterMethod

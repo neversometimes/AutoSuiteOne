@@ -7,6 +7,7 @@ import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.testng.annotations.*;
@@ -30,12 +31,13 @@ public class KeyboardActionsTest {
     void setup() throws MalformedURLException {
 
 
-        URL seleniumServerURL = new URL("http://localhost:4444");
-        assertTrue(isOnline(seleniumServerURL));
+        //URL seleniumServerURL = new URL("http://localhost:4444");
+        //assertTrue(isOnline(seleniumServerURL));
 
         ChromeOptions options = new ChromeOptions();
-        driver = new RemoteWebDriver(seleniumServerURL, options);
+        //driver = new RemoteWebDriver(seleniumServerURL, options);
 
+        driver = new ChromeDriver();
 
         // ** load test web site page for ALL KeyboardActionsTest suite
         driver.get("https://bonigarcia.dev/selenium-webdriver-java/web-form.html");

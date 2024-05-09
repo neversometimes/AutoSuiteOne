@@ -4,6 +4,7 @@ import static io.github.bonigarcia.wdm.WebDriverManager.isOnline;
 import static java.lang.invoke.MethodHandles.lookup;
 import static org.slf4j.LoggerFactory.getLogger;
 
+import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.slf4j.Logger;
 
@@ -41,10 +42,12 @@ public class LogGatheringTest {
         ChromeOptions options = new ChromeOptions();
         options.setCapability(ChromeOptions.LOGGING_PREFS, logs);
 
-        URL seleniumServerURL = new URL("http://localhost:4444");
-        assertTrue(isOnline(seleniumServerURL));
+        //URL seleniumServerURL = new URL("http://localhost:4444");
+        //assertTrue(isOnline(seleniumServerURL));
 
-        driver = new RemoteWebDriver(seleniumServerURL, options);
+        //driver = new RemoteWebDriver(seleniumServerURL, options);
+
+        driver = new ChromeDriver();
     }
 
     @AfterMethod
@@ -60,10 +63,9 @@ public class LogGatheringTest {
 
         assertFalse(browserLogs.getAll().isEmpty());  //verify logs not empty
 
-        // browserLogs.forEach(System.out::println);  // prints out the browser logs - note lambda syntax!
+        //browserLogs.forEach(System.out::println);  // prints out the browser log references ;
 
-        browserLogs.forEach(l -> log.debug("{}", l));  // this currently doesn't work because
-                                                        // SLF4J provider doesn't currently load properly :-P
+        browserLogs.forEach(l -> log.debug("{}", l));
     }
 
 } //end class

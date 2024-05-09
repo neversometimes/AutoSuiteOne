@@ -5,6 +5,7 @@ import org.openqa.selenium.By;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -41,10 +42,11 @@ public class GeolocationTest {
         options.setExperimentalOption("prefs", prefs);
 
         // set driver to run tests remotely
-        URL seleniumServerURL = new URL("http://localhost:4444");
-        assertTrue(isOnline(seleniumServerURL));  // verify remote is online
+        //URL seleniumServerURL = new URL("http://localhost:4444");
+        //assertTrue(isOnline(seleniumServerURL));  // verify remote is online
 
-        driver = new RemoteWebDriver(seleniumServerURL, options);
+        //driver = new RemoteWebDriver(seleniumServerURL, options);
+        driver = new ChromeDriver();
 
     }
 

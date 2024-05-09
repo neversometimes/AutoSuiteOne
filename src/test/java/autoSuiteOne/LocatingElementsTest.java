@@ -3,6 +3,7 @@ package autoSuiteOne;
 import static io.github.bonigarcia.wdm.WebDriverManager.isOnline;
 import static org.testng.AssertJUnit.*;
 
+import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.testng.annotations.*;
@@ -34,11 +35,13 @@ public class LocatingElementsTest {
     @BeforeMethod
     void setup() throws MalformedURLException {
 
-        URL seleniumServerURL = new URL("http://localhost:4444");
-        assertTrue(isOnline(seleniumServerURL));
+        //URL seleniumServerURL = new URL("http://localhost:4444");
+        //assertTrue(isOnline(seleniumServerURL));
 
         ChromeOptions options = new ChromeOptions();
-        driver = new RemoteWebDriver(seleniumServerURL, options);
+        //driver = new RemoteWebDriver(seleniumServerURL, options);
+
+        driver = new ChromeDriver();
 
         // ** load test web site page for ALL LocatingElementsTest class methods **
         driver.get("https://bonigarcia.dev/selenium-webdriver-java/web-form.html");

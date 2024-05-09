@@ -10,6 +10,7 @@ import io.github.bonigarcia.wdm.WebDriverManager;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.support.events.EventFiringDecorator;
@@ -30,12 +31,12 @@ public class EventListenerTest {
     @BeforeMethod
     void setup() throws MalformedURLException {
 
-        URL seleniumServerUrl = new URL("http://localhost:4444/");
-        assertTrue(isOnline(seleniumServerUrl));
+        //URL seleniumServerUrl = new URL("http://localhost:4444/");
+        //assertTrue(isOnline(seleniumServerUrl));
 
         ChromeOptions options = new ChromeOptions();
-        WebDriver originalDriver = new RemoteWebDriver(seleniumServerUrl, options);
-
+        //WebDriver originalDriver = new RemoteWebDriver(seleniumServerUrl, options);
+        WebDriver originalDriver = new ChromeDriver();
 
         MyEventListener listener = new MyEventListener();  // construct listener object
         driver = new EventFiringDecorator<>(listener).decorate(originalDriver);  // decorate driver with listener

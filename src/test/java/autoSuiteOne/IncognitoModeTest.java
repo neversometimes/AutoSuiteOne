@@ -3,6 +3,7 @@ package autoSuiteOne;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WindowType;
+import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.testng.annotations.*;
@@ -27,10 +28,11 @@ public class IncognitoModeTest {
        ChromeOptions options = new ChromeOptions();
        options.addArguments("--incognito");
 
-       URL seleniumServerURL = new URL("http://localhost:4444");
-       assertTrue(isOnline(seleniumServerURL));
-       driver = new RemoteWebDriver(seleniumServerURL, options);
+       //URL seleniumServerURL = new URL("http://localhost:4444");
+       //assertTrue(isOnline(seleniumServerURL));
+       //driver = new RemoteWebDriver(seleniumServerURL, options);
 
+        driver = new ChromeDriver();
     }
 
     @AfterMethod
@@ -43,7 +45,7 @@ public class IncognitoModeTest {
 
         // Can't figure out how to verify Incognito mode has been correctly set.
         // Given it's a browser setting and not a web page/app property or behavior,
-        // maybe verification is not a high priority.
+        // maybe verification is not a high priority ?
 
         driver.get("https://bonigarcia.dev/selenium-webdriver-java/");
         String initHandle = driver.getWindowHandle();  // save handle to first browser window

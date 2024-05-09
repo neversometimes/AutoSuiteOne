@@ -3,7 +3,9 @@ package autoSuiteOne;
 import static io.github.bonigarcia.wdm.WebDriverManager.isOnline;
 import static org.testng.AssertJUnit.*;
 
+import org.apache.commons.lang3.SystemUtils;
 import org.openqa.selenium.*;
+import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.remote.RemoteWebDriver;
@@ -31,12 +33,13 @@ public class MouseActionsTest {
     @BeforeMethod
     void setup() throws MalformedURLException {
 
-        URL seleniumServerURL = new URL("http://localhost:4444");
-        assertTrue(isOnline(seleniumServerURL));
+        //URL seleniumServerURL = new URL("http://localhost:4444");
+        //assertTrue(isOnline(seleniumServerURL));
 
         ChromeOptions options = new ChromeOptions();
-        driver = new RemoteWebDriver(seleniumServerURL, options);
+        //driver = new RemoteWebDriver(seleniumServerURL, options);
 
+        driver = new ChromeDriver();
     }
 
     @AfterMethod
@@ -180,8 +183,8 @@ public class MouseActionsTest {
     @Test
     void testCopyAndPaste() {
 
-        // SystemUtils doesn't work with RemoteWebDriver. Gets hub properties and not node properties
-        //Keys modifier = SystemUtils.IS_OS_MAC ? Keys.COMMAND : Keys.CONTROL;
+        // NOTE: SystemUtils doesn't work with RemoteWebDriver. Gets hub properties and not node properties
+        Keys modifier = SystemUtils.IS_OS_MAC ? Keys.COMMAND : Keys.CONTROL;
 
         driver.get("https://bonigarcia.dev/selenium-webdriver-java/web-form.html");
 
@@ -192,7 +195,7 @@ public class MouseActionsTest {
 
         actions.sendKeys(inputText, "Good-ay Mate!")
                 .pause(Duration.ofSeconds(3))
-                .keyDown(Keys.CONTROL)
+                .keyDown(modifier)
                 .sendKeys(inputText, "a")
                 .sendKeys(inputText, "c")
                 .pause(Duration.ofSeconds(3))

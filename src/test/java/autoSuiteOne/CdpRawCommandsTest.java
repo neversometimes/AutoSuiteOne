@@ -11,16 +11,16 @@ import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.devtools.DevTools;
 import org.openqa.selenium.devtools.HasDevTools;
 import org.openqa.selenium.devtools.events.ConsoleEvent;
-import org.openqa.selenium.devtools.v121.network.model.BlockedReason;
-import org.openqa.selenium.devtools.v121.network.model.Cookie;
-import org.openqa.selenium.devtools.v121.network.model.Headers;
-import org.openqa.selenium.devtools.v121.performance.Performance;
-import org.openqa.selenium.devtools.v121.dom.model.Rect;
-import org.openqa.selenium.devtools.v121.network.Network;
-import org.openqa.selenium.devtools.v121.network.model.ConnectionType;
-import org.openqa.selenium.devtools.v121.page.Page;
-import org.openqa.selenium.devtools.v121.page.model.Viewport;
-import org.openqa.selenium.devtools.v121.performance.model.Metric;
+import org.openqa.selenium.devtools.v122.network.model.BlockedReason;
+import org.openqa.selenium.devtools.v122.network.model.Cookie;
+import org.openqa.selenium.devtools.v122.network.model.Headers;
+import org.openqa.selenium.devtools.v122.performance.Performance;
+import org.openqa.selenium.devtools.v122.dom.model.Rect;
+import org.openqa.selenium.devtools.v122.network.Network;
+import org.openqa.selenium.devtools.v122.network.model.ConnectionType;
+import org.openqa.selenium.devtools.v122.page.Page;
+import org.openqa.selenium.devtools.v122.page.model.Viewport;
+import org.openqa.selenium.devtools.v122.performance.model.Metric;
 import org.openqa.selenium.devtools.v85.emulation.Emulation;
 import org.openqa.selenium.devtools.v85.security.Security;
 import org.openqa.selenium.remote.Augmenter;
@@ -61,11 +61,13 @@ public class CdpRawCommandsTest {
     @BeforeMethod
     void setup() throws MalformedURLException {
 
-        URL seleniumServerUrl = new URL("http://localhost:4444/");
-        Assert.assertTrue(isOnline(seleniumServerUrl));
+        //URL seleniumServerUrl = new URL("http://localhost:4444/");
+        //Assert.assertTrue(isOnline(seleniumServerUrl));
 
         ChromeOptions options = new ChromeOptions();
-        driver = new RemoteWebDriver(seleniumServerUrl, options);
+        //driver = new RemoteWebDriver(seleniumServerUrl, options);
+
+        driver = new ChromeDriver();
 
         driver = new Augmenter().augment(driver);
         devTools = ((HasDevTools) driver).getDevTools();   // capture devtools instance
@@ -233,9 +235,9 @@ public class CdpRawCommandsTest {
 
 
         // executeCDPCommand isn't supported using RemoteWebDriver
-      /*  ((ChromeDriver)driver).executeCdpCommand(
+        ((ChromeDriver)driver).executeCdpCommand(
                 "Emulation.setDeviceMetricsOverride", deviceMetrics); // override device screen params
-        */
+
         driver.get("https://bonigarcia.dev/selenium-webdriver-java/");
         assertTrue(driver.getTitle().contains("Selenium WebDriver"));
     }

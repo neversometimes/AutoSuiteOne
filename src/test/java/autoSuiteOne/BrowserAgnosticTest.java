@@ -4,6 +4,7 @@ import static io.github.bonigarcia.wdm.WebDriverManager.isOnline;
 import static org.testng.Assert.assertTrue;
 import static org.testng.AssertJUnit.*;             // TestNG
 
+import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.testng.annotations.*;
@@ -45,11 +46,13 @@ public class BrowserAgnosticTest {
 
     @BeforeMethod
     void setup() throws MalformedURLException {
-        URL seleniumServerUrl = new URL("http://localhost:4444/");
-        assertTrue(isOnline(seleniumServerUrl));
+        //URL seleniumServerUrl = new URL("http://localhost:4444/");
+        //assertTrue(isOnline(seleniumServerUrl));
 
         ChromeOptions options = new ChromeOptions();
-        driver = new RemoteWebDriver(seleniumServerUrl, options);
+        //driver = new RemoteWebDriver(seleniumServerUrl, options);
+
+        driver = new ChromeDriver();
 
     }
     @AfterMethod
