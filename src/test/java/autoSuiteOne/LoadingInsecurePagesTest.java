@@ -35,7 +35,7 @@ public class LoadingInsecurePagesTest {
         //assertTrue(isOnline(seleniumServerURL));
 
         //driver = new RemoteWebDriver(seleniumServerURL, options);
-        driver = new ChromeDriver();
+        driver = WebDriverManager.chromedriver().capabilities(options).create();
     }
 
     @AfterMethod
