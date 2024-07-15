@@ -52,7 +52,7 @@ public class LocalNetworkInterceptorTest {
                 int width = Integer.parseInt(driver.findElement(By.tagName("img"))
                              .getAttribute("width"));  //get width value of web element "img"
 
-                assertTrue(width > 80);  // verify previous "img" size of 80x80 is now 128x128 test resource
+                assertTrue(width == 128);  // verify previous "img" size of 80x80 is now 128x128 test resource
         }
 
     }

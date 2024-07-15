@@ -11,16 +11,16 @@ import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.devtools.DevTools;
 import org.openqa.selenium.devtools.HasDevTools;
 import org.openqa.selenium.devtools.events.ConsoleEvent;
-import org.openqa.selenium.devtools.v122.network.model.BlockedReason;
-import org.openqa.selenium.devtools.v122.network.model.Cookie;
-import org.openqa.selenium.devtools.v122.network.model.Headers;
-import org.openqa.selenium.devtools.v122.performance.Performance;
-import org.openqa.selenium.devtools.v122.dom.model.Rect;
-import org.openqa.selenium.devtools.v122.network.Network;
-import org.openqa.selenium.devtools.v122.network.model.ConnectionType;
-import org.openqa.selenium.devtools.v122.page.Page;
-import org.openqa.selenium.devtools.v122.page.model.Viewport;
-import org.openqa.selenium.devtools.v122.performance.model.Metric;
+import org.openqa.selenium.devtools.v124.network.model.BlockedReason;
+import org.openqa.selenium.devtools.v124.network.model.Cookie;
+import org.openqa.selenium.devtools.v124.network.model.Headers;
+import org.openqa.selenium.devtools.v124.performance.Performance;
+import org.openqa.selenium.devtools.v124.dom.model.Rect;
+import org.openqa.selenium.devtools.v124.network.Network;
+import org.openqa.selenium.devtools.v124.network.model.ConnectionType;
+import org.openqa.selenium.devtools.v124.page.Page;
+import org.openqa.selenium.devtools.v124.page.model.Viewport;
+import org.openqa.selenium.devtools.v124.performance.model.Metric;
 import org.openqa.selenium.devtools.v85.emulation.Emulation;
 import org.openqa.selenium.devtools.v85.security.Security;
 import org.openqa.selenium.remote.Augmenter;
@@ -46,6 +46,13 @@ import java.util.*;
 import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.TimeUnit;
+
+// *************************************************************************
+// TODO:
+//  NOTE:  Selenium CDP is deprecated - Will look to write these test methods
+//          using Selenium BiDi (bidirectional functionality)
+//
+// *************************************************************************
 
 public class CdpRawCommandsTest {
 
@@ -88,8 +95,8 @@ public class CdpRawCommandsTest {
                 Optional.empty(), Optional.empty()));
 
         // emulate a mobile 3G network
-        devTools.send(Network.emulateNetworkConditions(false, 100, 50 * 1024,
-                50 * 1024, Optional.of(ConnectionType.CELLULAR3G)));
+        //devTools.send(Network.emulateNetworkConditions(false, 100, 50 * 1024,
+        //        50 * 1024, Optional.of(ConnectionType.CELLULAR3G)));
 
         long initMillis = System.currentTimeMillis();  // get start of page load
         driver.get("https://bonigarcia.dev/selenium-webdriver-java/");
