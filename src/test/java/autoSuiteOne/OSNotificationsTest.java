@@ -13,7 +13,7 @@ import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
 
-import static io.github.bonigarcia.wdm.WebDriverManager.isOnline;
+import static io.github.bonigarcia.wdm.WebDriverManager.*;
 import static org.testng.AssertJUnit.*;
 
 public class OSNotificationsTest {
@@ -39,8 +39,9 @@ public class OSNotificationsTest {
 
         //driver = new RemoteWebDriver(seleniumServerURL, options);
 
-        driver = new ChromeDriver();
+        driver = WebDriverManager.chromedriver().capabilities(options).create();
     }
+
     @AfterMethod
     void teardown() {
         driver.quit();
@@ -56,9 +57,9 @@ public class OSNotificationsTest {
         String script = String.join("\n",
                 "const callback = arguments[arguments.length - 1];",  // callback function to end the script
                 "const OldNotify = window.Notification;",               // store a copy of the original constructor
-                "function newNotification(title, options) {",        // create new constructor for notifications
-                "     callback(title);" ,                           // pass msg title as arg in callback
-                "     return new OldNotify(title, options);",   // use old constructor to create original notificaton object
+                "function newNotification(title, options) {",          // create new constructor for notifications
+                "     callback(title);" ,                              // pass msg title as arg in callback
+                "     return new OldNotify(title, options);",          // use old constructor to create original notificaton object
                 "}",
                 "newNotification.requestPermission = " +
                         "OldNotify.requestPermission.bind(OldNotify);" ,
@@ -68,7 +69,7 @@ public class OSNotificationsTest {
                 "     }" ,
                 "});" ,
                 "window.Notification = newNotification;" ,
-                "document.getElementById('notify-me').click();") ;  // btn click triggers notification on web page
+                "document.getElementById('notify-me').click();") ;        // btn click triggers notification on web page
 
         Object notificationTitle = js.executeAsyncScript(script);
 
