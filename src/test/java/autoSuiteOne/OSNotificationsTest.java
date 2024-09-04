@@ -40,6 +40,7 @@ public class OSNotificationsTest {
         //driver = new RemoteWebDriver(seleniumServerURL, options);
 
         driver = WebDriverManager.chromedriver().capabilities(options).create();
+
     }
 
     @AfterMethod
