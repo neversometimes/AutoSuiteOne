@@ -47,12 +47,6 @@ import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.TimeUnit;
 
-// *************************************************************************
-// TODO:
-//  NOTE:  Selenium CDP is deprecated - Will look to write these test methods
-//          using Selenium BiDi (bidirectional functionality)
-//
-// *************************************************************************
 
 public class CdpRawCommandsTest {
 
