@@ -167,7 +167,7 @@ public class LocatingElementsTest {
         WebElement datePicker = driver.findElement(By.name("my-date"));
         datePicker.click();
 
-        // click on the current month by searching text
+        // click on the current month by searching html tag attributes
         WebElement monthElement = driver.findElement(By.xpath(String.format("//th[contains(text(),'%d')]", currentYear)));
         monthElement.click();
 
