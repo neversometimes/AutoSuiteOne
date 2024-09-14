@@ -9,6 +9,7 @@ import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.testng.annotations.*;
 
@@ -34,10 +35,12 @@ public class KeyboardActionsTest {
         //URL seleniumServerURL = new URL("http://localhost:4444");
         //assertTrue(isOnline(seleniumServerURL));
 
-        ChromeOptions options = new ChromeOptions();
+        //ChromeOptions options = new ChromeOptions();
         //driver = new RemoteWebDriver(seleniumServerURL, options);
 
-        driver = new ChromeDriver();
+        //driver = new ChromeDriver();
+        driver = new FirefoxDriver();
+
 
         // ** load test web site page for ALL KeyboardActionsTest suite
         driver.get("https://bonigarcia.dev/selenium-webdriver-java/web-form.html");

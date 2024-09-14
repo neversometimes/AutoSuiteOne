@@ -6,6 +6,7 @@ import static org.testng.AssertJUnit.*;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.remote.RemoteWebDriver;
+import org.openqa.selenium.firefox.FirefoxDriver;
 import org.testng.annotations.*;
 
 import org.openqa.selenium.By;
@@ -38,10 +39,13 @@ public class LocatingElementsTest {
         //URL seleniumServerURL = new URL("http://localhost:4444");
         //assertTrue(isOnline(seleniumServerURL));
 
-        ChromeOptions options = new ChromeOptions();
+       //ChromeOptions options = new ChromeOptions();
         //driver = new RemoteWebDriver(seleniumServerURL, options);
 
-        driver = new ChromeDriver();
+       //driver = new ChromeDriver();
+
+        // use FF as browser for this class
+        driver = new FirefoxDriver();
 
         // ** load test web site page for ALL LocatingElementsTest class methods **
         driver.get("https://bonigarcia.dev/selenium-webdriver-java/web-form.html");
