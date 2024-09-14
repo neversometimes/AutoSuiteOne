@@ -65,15 +65,28 @@ public class ScopeTest {
 
         int aTagCount = firstColDriver.findElements(By.tagName("a")).size();
 
+        String os = System.getProperty("os.name");
         Actions action = new Actions(driver);
+
         for (int i=1; i<aTagCount; i++) {
             // control click each link to open new tabs
-            action.keyDown(Keys.COMMAND)
-                    .pause(Duration.ofSeconds(1))
-                    .click(columnAnchors.get(i))
-                    .keyUp(Keys.COMMAND)
-                    .build()
-                    .perform();
+
+            if (os.contains("Windows")) {
+                action.keyDown(Keys.CONTROL)
+                        .pause(Duration.ofSeconds(1))
+                        .click(columnAnchors.get(i))
+                        .keyUp(Keys.CONTROL)
+                        .build()
+                        .perform();
+            } else {  //  use MacOS COMMAND key
+                action.keyDown(Keys.COMMAND)
+                        .pause(Duration.ofSeconds(1))
+                        .click(columnAnchors.get(i))
+                        .keyUp(Keys.COMMAND)
+                        .build()
+                        .perform();
+
+            }
             Thread.sleep(1000);
         }
        // cycle through new tab windows
@@ -81,13 +94,12 @@ public class ScopeTest {
 
         //fetch handles of all windows
         Set<String> abc = driver.getWindowHandles();  // expect 5 : includes home test page
-        Iterator<String> it = abc.iterator();
 
-        while (it.hasNext()) { // starts at [0]
-           driver.switchTo().window(it.next());
-           Thread.sleep(500);
-           System.out.println(driver.getTitle());
-           System.out.println(driver.getCurrentUrl());
+        for (String s : abc) { // starts at [0]
+            driver.switchTo().window(s);
+            Thread.sleep(500);
+            System.out.println(driver.getTitle());
+            System.out.println(driver.getCurrentUrl());
 
         }
 
