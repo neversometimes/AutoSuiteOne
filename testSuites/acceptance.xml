@@ -1,0 +1,22 @@
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd" >
+
+<suite name="acceptance">
+    <test name="Acceptance Tests" >
+        <classes>
+            <class name="autoSuiteOne.BasicAuthTest" />
+            <class name="autoSuiteOne.BrowserAgnosticTest" />
+            <class name="autoSuiteOne.CalendarElementTest" />
+            <class name="autoSuiteOne.HeadlessChromeJupiterTest" />
+            <class name="autoSuiteOne.IncognitoModeTest" />
+            <class name="autoSuiteOne.LocalizationTest" />
+            <class name="autoSuiteOne.LocalPrintPageTest" />
+            <class name="autoSuiteOne.LocalWebDriverBiDiTest" />
+            <class name="autoSuiteOne.LocatingElementsTest" />
+            <class name="autoSuiteOne.MouseActionsTest" />
+            <class name="autoSuiteOne.MultiElementTest" />
+            <class name="autoSuiteOne.ScopeTest" />
+            <class name="autoSuiteOne.SuggestionTextDropDownTest" />
+            <class name="autoSuiteOne.WebTableTest" />
+        </classes>
+    </test>
+</suite>

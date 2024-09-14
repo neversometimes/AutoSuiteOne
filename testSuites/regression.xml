@@ -1,0 +1,36 @@
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd" >
+
+<suite name="regression">
+    <test name="All Tests" >
+        <classes>
+            <class name="autoSuiteOne.BasicAuthTest" />
+            <class name="autoSuiteOne.BrowserAgnosticTest" />
+            <class name="autoSuiteOne.CalendarElementTest" />
+            <class name="autoSuiteOne.CdpRawCommandsTest" />
+            <class name="autoSuiteOne.DeviceEmulationTest" />
+            <class name="autoSuiteOne.EventListenerTest" />
+            <class name="autoSuiteOne.GeolocationTest" />
+            <class name="autoSuiteOne.GetUserMediaTest" />
+            <class name="autoSuiteOne.HeadlessChromeJupiterTest" />
+            <class name="autoSuiteOne.IncognitoModeTest" />
+            <class name="autoSuiteOne.LoadingInsecurePagesTest" />
+            <class name="autoSuiteOne.LocalizationTest" />
+            <class name="autoSuiteOne.LocalNetworkInterceptorTest" />
+            <class name="autoSuiteOne.LocalPrintPageTest" />
+            <class name="autoSuiteOne.LocalWebDriverBiDiTest" />
+            <class name="autoSuiteOne.LocalWebExtensionTest" />
+            <class name="autoSuiteOne.LocatingElementsTest" />
+            <class name="autoSuiteOne.LogGatheringTest" />
+            <class name="autoSuiteOne.MouseActionsTest" />
+            <class name="autoSuiteOne.MultiElementTest" />
+            <class name="autoSuiteOne.MyEventListener" />
+            <class name="autoSuiteOne.OSNotificationsTest" />
+            <class name="autoSuiteOne.PageLoadChromeJupiterTest" />
+            <class name="autoSuiteOne.RemoteFileTest" />
+            <class name="autoSuiteOne.ScopeTest" />
+            <class name="autoSuiteOne.SuggestionTextDropDownTest" />
+            <class name="autoSuiteOne.WebAuthenticationTest" />
+            <class name="autoSuiteOne.WebTableTest" />
+        </classes>
+    </test>
+</suite>
