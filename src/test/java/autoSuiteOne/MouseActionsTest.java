@@ -7,6 +7,8 @@ import org.apache.commons.lang3.SystemUtils;
 import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.edge.EdgeDriver;
+import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.support.locators.RelativeLocator;
@@ -24,10 +26,6 @@ import java.util.List;
 public class MouseActionsTest {
 
     WebDriver driver;
-    @BeforeClass
-    void setupClass() {
-        WebDriverManager.chromedriver().setup();
-    }
 
 
     @BeforeMethod
@@ -36,10 +34,24 @@ public class MouseActionsTest {
         //URL seleniumServerURL = new URL("http://localhost:4444");
         //assertTrue(isOnline(seleniumServerURL));
 
-        ChromeOptions options = new ChromeOptions();
-        //driver = new RemoteWebDriver(seleniumServerURL, options);
+        // get target browser from CLI if given, otherwise use "chrome"
+        String browserName = System.getProperty("browser") != null ? System.getProperty("browser") : "chrome";
 
-        driver = new ChromeDriver();
+        if (browserName.contains("chrome")) {
+            ChromeOptions options = new ChromeOptions();
+            if (browserName.contains("headless")) {
+                options.addArguments("headless");
+            }
+            WebDriverManager.chromedriver().setup();
+            driver = new ChromeDriver(options);
+        } else if (browserName.equalsIgnoreCase("firefox")) {
+            driver = new FirefoxDriver();
+        } else if (browserName.equalsIgnoreCase("edge")) {
+            driver = new EdgeDriver();
+        }
+        driver.manage().window().setSize(new Dimension(1440, 900));
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+
     }
 
     @AfterMethod

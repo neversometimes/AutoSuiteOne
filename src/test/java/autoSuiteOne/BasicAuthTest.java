@@ -16,20 +16,25 @@ import static org.testng.AssertJUnit.*;
 public class BasicAuthTest {
     WebDriver driver;
 
-    @BeforeClass
-    void setupClass() {WebDriverManager.chromedriver().setup();}
-
     @BeforeMethod
     void setup () throws MalformedURLException {
 
         //URL seleniumServerURL = new URL("http://localhost:4444");
         //assertTrue(isOnline(seleniumServerURL));
-
-        ChromeOptions options = new ChromeOptions();
         //driver = new RemoteWebDriver(seleniumServerURL, options);
 
-        driver = new ChromeDriver();
 
+        // THIS TEST IS RUN ON CHROME ONLY
+        // get target browser from CLI to check for headless mode param
+        String browserName = System.getProperty("browser");
+
+        ChromeOptions options = new ChromeOptions();
+        if (browserName.contains("headless")) {
+            options.addArguments("headless");
+        }
+        WebDriverManager.chromedriver().setup();
+        driver = new ChromeDriver(options);
+        driver.manage().window().setSize(new Dimension(1440, 900));
         }
 
     @AfterMethod

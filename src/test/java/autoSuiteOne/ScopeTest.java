@@ -4,6 +4,9 @@ import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
 
+import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.edge.EdgeDriver;
+import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.interactions.Actions;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeClass;
@@ -20,14 +23,20 @@ public class ScopeTest {
     WebDriver driver;
     SoftAssert sa = new SoftAssert();
 
-    @BeforeClass
-    public void setUpClass() {
-        WebDriverManager.chromedriver().setup();
-    }
-
     @BeforeMethod
     public void setUp() {
-        driver = new ChromeDriver();
+
+        //  THIS TEST WILL ONLY BE RUN ON CHROME
+        // get target browser from CLI to check for headless mode param
+        String browserName = System.getProperty("browser");
+
+        ChromeOptions options = new ChromeOptions();
+        if (browserName.contains("headless")){
+            options.addArguments("headless");
+        }
+        WebDriverManager.chromedriver().setup();
+        driver = new ChromeDriver(options);
+        driver.manage().window().setSize(new Dimension(1440, 900));
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
     }
 
